@@ -1,0 +1,32 @@
+*{cursor: pointer}
+:host::ng-deep.ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item{
+  text-align: right!important;
+  font-family: IRANSansWeb;
+}
+:host::ng-deep.ui-dropdown label.ui-dropdown-label{font-family: IRANSansWeb;}
+:host::ng-deep.ui-table .ui-table-tbody > tr> th{font-size: 14px!important;}
+:host::ng-deep.ui-table .ui-table-thead > tr.title-table > th{
+  background-color: #0099CC!important;
+  color:white!important;
+  font-size: 14px;
+  font-family: IRANSansWeb;
+}
+:host::ng-deep.ui-button{ font-family: IRANSansWeb;}
+:host::ng-deep.ui-table .ui-table-tbody > tr > td {font-family: IRANSansWeb;font-size: 13px}
+label , input{font-family: IRANSansWeb}
+:host ::ng-deep .custom-toast .ui-toast-message {
+  background: #FC466B;
+  background: -webkit-linear-gradient(to right, #3F5EFB, #FC466B);
+  background: linear-gradient(to right, #3F5EFB, #FC466B);
+}
+
+:host ::ng-deep .custom-toast .ui-toast-message div {
+  color: #ffffff;
+}
+
+:host ::ng-deep .custom-toast .ui-toast-message.ui-toast-message-info .ui-toast-close-icon {
+  color: #ffffff;
+}
+:host ::ng-deep button {
+  margin-right: .25em;
+}

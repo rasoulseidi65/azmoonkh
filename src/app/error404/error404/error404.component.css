@@ -1,0 +1,56 @@
+/*start_error404*/
+.container-fluid{
+  background-color: #ffffff;
+  height: 100vh;
+}
+.container-fluid .row-error{
+  text-align: center;
+  margin-top: 5%;
+}
+.container-fluid .row-error .col-md-4 .row-error-right img{
+  margin: 70px 10px 0px 0px;
+}
+.container-fluid .row-error .col-md-4 .row-error-right a{
+  font-family: IRANSans_Light;
+}
+.container-fluid .row-error .col-md-8 .row-error-left{
+  margin-top: 10px;
+}
+.container-fluid .row-error .col-md-8 .row-error-left span{
+  font-family: IRANSans_Bold;
+  font-size: 20px;
+  line-height: 2;
+}
+.container-fluid .row-error .col-md-8 .row-error-left p{
+  font-family: IRANSans_Light;
+  font-size: 14px;
+  text-align: justify;
+  line-height: 2;
+  display: inline-grid;
+}
+.container-fluid .row-error .col-md-8 .row-error-left p span{
+  color: #ff5000;
+}
+.container-fluid .row-error .col-md-8 .row-error-left .panel-body .caption span{
+  font-family: IRANSans_Bold;
+}
+.container-fluid .row-error .col-md-8 .row-error-left .panel-body ul li{
+  float: right;
+  list-style: none;
+  display: inline-flex;
+}
+.container-fluid .row-error .col-md-8 .row-error-left .panel-body ul li img{
+  width: 25px;
+  height: 25px;
+  margin-top: 6px;
+}
+.container-fluid .row-error .col-md-8 .row-error-left .panel-body ul li a{
+  font-family: IRANSans_Light;
+  text-decoration: none;
+  padding: 10px 10px;
+  color: #000000;
+}
+.container-fluid .row-error .col-md-8 .row-error-left .panel-body ul li a:hover{
+  color:#ff5000 ;
+}
+/*end-error404*/

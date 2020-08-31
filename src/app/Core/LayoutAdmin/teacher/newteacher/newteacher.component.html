@@ -1,0 +1,129 @@
+<p-toast position="top-center" class="text-center"></p-toast>
+
+<form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)">
+  <p-panel header="فرم ثبت مشخصات مدرس">
+    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          نام مدرس <label style="color: red">*</label>:
+        </div>
+        <div class="ui-grid-col-6">
+          <input pInputText type="text" formControlName="firstName" placeholder=""/>
+        </div>
+        <div class="ui-grid-col-4">
+          <p-message severity="error" text="نام مدرس را وارد نمائید" *ngIf="!userform.controls['firstName'].valid&&userform.controls['firstName'].dirty"></p-message>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          نام خانوادگی مدرس <label style="color: red">*</label>:
+        </div>
+        <div class="ui-grid-col-6">
+          <input pInputText type="text" formControlName="lastName" placeholder=""/>
+        </div>
+        <div class="ui-grid-col-4">
+          <p-message severity="error" text="نام خانوادگی مدرس را وارد نمائید " *ngIf="!userform.controls['lastName'].valid&&userform.controls['lastName'].dirty"></p-message>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          کد ملی <label style="color: red">*</label>:
+        </div>
+        <div class="ui-grid-col-6">
+          <input type="text" pInputText pKeyFilter="num" formControlName="nationalCode" maxlength="10" >
+        </div>
+        <div class="ui-grid-col-4">
+          <p-message severity="error" text="کد ملی را وارد نمائید" *ngIf="!userform.controls['nationalCode'].valid&&userform.controls['nationalCode'].dirty"></p-message>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          شماره همراه <label style="color: red">*</label>:
+        </div>
+        <div class="ui-grid-col-6">
+          <p-inputMask dir="rtl" mask="(0999) 999-9999" formControlName="mobile" placeholder="(0912) 345-6789"></p-inputMask>
+<!--          <input pInputText type="text" pKeyFilter="num" formControlName="mobile" placeholder="" maxlength="11"/>-->
+        </div>
+        <div class="ui-grid-col-4">
+          <p-message severity="error" text="شماره موبایل را به درستی وارد نمائید" *ngIf="!userform.controls['mobile'].valid&&userform.controls['mobile'].dirty"></p-message>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          ایمیل <label style="color: red">*</label>:
+        </div>
+        <div class="ui-grid-col-6">
+          <input type="text" pInputText pKeyFilter="email" formControlName="email" >
+
+        </div>
+        <div class="ui-grid-col-4">
+          <p-message severity="error" text="ایمیل را به درستی وارد نمائید" *ngIf="!userform.controls['email'].valid&&userform.controls['email'].dirty"></p-message>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          گذر واژه<label style="color: red">*</label>:
+        </div>
+        <div class="ui-grid-col-6">
+          <input type="password" pPassword formControlName="password" promptLabel="رمز را وارد نمائید" weakLabel="ضعیف" mediumLabel="متوسط" strongLabel="قوی"/>
+        </div>
+        <div class="ui-grid-col-4">
+          <p-message severity="error" text="رمز عبور را وارد نمائید." *ngIf="!userform.controls['password'].valid&&userform.controls['password'].dirty"></p-message>
+        </div>
+      </div>
+
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          نوع مدرک<label style="color: red">*</label>:
+        </div>
+        <div class="ui-grid-col-6" dir="ltr">
+          <p-dropdown [options]="mardak" [showTransitionOptions]="'1ms'" [hideTransitionOptions]="'1ms'" formControlName="madrak" [filter]="true"></p-dropdown>
+        </div>
+        <div class="ui-grid-col-4">
+          <p-message style="text-align: right" severity="error" text="خلاصه مقاله" *ngIf="!userform.controls['madrak'].valid&&userform.controls['madrak'].dirty"></p-message>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          رشته <label style="color: red">*</label>:
+        </div>
+        <div class="ui-grid-col-6">
+          <input type="text" pInputText  formControlName="field" >
+
+        </div>
+        <div class="ui-grid-col-4">
+          <p-message severity="error" text="رشته تحصیلی را به درستی وارد نمائید" *ngIf="!userform.controls['field'].valid&&userform.controls['field'].dirty"></p-message>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          تصویر پروفایل :
+        </div>
+        <div class="ui-grid-col-8">
+          <p-fileUpload name="myfile[]" url="./upload.php" uploadLabel="آپلود" chooseLabel="انتخاب تصویر" cancelLabel="انصراف"></p-fileUpload>
+        </div>
+        <div class="ui-grid-col-2">
+        </div>
+      </div>
+      <div class="ui-grid-row" style="margin-bottom:8rem">
+        <div class="ui-grid-col-2">
+          رزومه مدرس:
+        </div>
+        <div class="ui-grid-col-8">
+          <quill-editor formControlName="cv"></quill-editor>
+
+        </div>
+        <div class="ui-grid-col-2"></div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2"></div>
+        <div class="ui-grid-col-6">
+          <button pButton type="submit" label="ثبت مدرس جدید" [disabled]="!userform.valid"></button>
+        </div>
+        <div class="ui-grid-col-4"></div>
+      </div>
+
+    </div>
+  </p-panel>
+</form>
+

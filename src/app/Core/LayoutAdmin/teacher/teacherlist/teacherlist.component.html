@@ -1,0 +1,184 @@
+<p-table [value]="teacherModels" #dt [columns]="cols" [paginator]="true" [rows]="5">
+  <ng-template pTemplate="caption">
+    <div class="text-right">لیست مدرس ها</div>
+    <div style="text-align: left" class="ui-table-globalfilter-container">
+      <input  class="input-filter" type="text" pInputText size="50" placeholder="جستجوی سراسری" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr class="title-table">
+      <th style="width: 5%" class="text-center">ردیف</th>
+      <th style="width: 25%" class="text-center">نام مدرس</th>
+      <th style="width: 25%" class="text-center">نام خانوادگی</th>
+      <th style="width: 25%" class="text-center">شماره همراه</th>
+      <th style="width: 25%" class="text-center">مدرک</th>
+      <th style="width: 25%" class="text-center">رشته تحصیلی</th>
+      <th style="width: 6%" class="text-center">ویرایش</th>
+      <th style="width: 6%" class="text-center">حذف</th>
+
+    </tr>
+    <tr>
+      <th></th>
+      <th *ngFor="let col of cols" [ngSwitch]="col.field" style="width: 10%">
+        <input  class="input-filter text-center" placeholder="جستجوی نام مدرس" *ngSwitchCase="'firstName'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+        <input class="input-filter text-center " placeholder="جستجوی فامیلی" *ngSwitchCase="'lastName'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+        <input class="input-filter text-center" placeholder="جستجوی  شماره همراه" *ngSwitchCase="'mobile'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+        <input  class="input-filter text-center" placeholder="جستجوی  مدرک" *ngSwitchCase="'madrak'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+        <input  class="input-filter text-center" placeholder="جستجوی  رشته" *ngSwitchCase="'field'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-teacher let-rowIndex="rowIndex">
+    <tr>
+      <td class="text-center">{{rowIndex + 1}}</td>
+      <td class="text-center">{{teacher.firstname}}</td>
+      <td class="text-center">{{teacher.lastName}}</td>
+      <td class="text-center">{{teacher.mobile}}</td>
+      <td class="text-center">{{teacher.madrak}}</td>
+      <td class="text-center">{{teacher.field}}</td>
+      <td  class="text-center"><i class="fas fa-edit fa-1x text-muted" (click)="showDialogEdit()"></i>
+      </td>
+      <td  class="text-center"><i class="fas fa-trash fa-1x text-danger"  (click)="showDialog()"></i></td>
+    </tr>
+  </ng-template>
+
+</p-table>
+
+
+<p-dialog [(visible)]="display" [transitionOptions]="'3ms'">
+  <p-header>
+    حذف مدرس
+  </p-header>
+  <p id="text-delete-dialog">کاربر محترم از حذف مدرس مطمئین هستید؟
+  </p>
+  <br>
+
+  <p-footer>
+    <button class="ui-button-success ml-auto" pButton type="button" label="بله" ></button>
+    <button class="ui-button-danger" pButton type="button" label="خیر"  style="float: left"></button>
+  </p-footer>
+</p-dialog>
+<p-dialog [(visible)]="displayEdit" [style]="{width: '60vw'}">
+  <p-header>
+    فرم ویرایش مشخصات مدرس
+  </p-header>
+  <form [formGroup]="userform" (ngSubmit)="onSubmit(userform.value)">
+
+      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            نام مدرس <label style="color: red">*</label>:
+          </div>
+          <div class="ui-grid-col-6">
+            <input pInputText type="text" formControlName="firstName" placeholder=""/>
+          </div>
+          <div class="ui-grid-col-4">
+            <p-message severity="error" text="نام مقاله را وارد نمائید" *ngIf="!userform.controls['firstName'].valid&&userform.controls['firstName'].dirty"></p-message>
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            نام خانوادگی مدرس <label style="color: red">*</label>:
+          </div>
+          <div class="ui-grid-col-6">
+            <input pInputText type="text" formControlName="lastName" placeholder=""/>
+          </div>
+          <div class="ui-grid-col-4">
+            <p-message severity="error" text="خلاصه مقاله" *ngIf="!userform.controls['lastName'].valid&&userform.controls['lastName'].dirty"></p-message>
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            کد ملی <label style="color: red">*</label>:
+          </div>
+          <div class="ui-grid-col-6">
+            <input type="text" pInputText pKeyFilter="num" formControlName="nationalCode" maxlength="10" >
+          </div>
+          <div class="ui-grid-col-4">
+            <p-message severity="error" text="کد ملی را وارد نمائید" *ngIf="!userform.controls['nationalCode'].valid&&userform.controls['nationalCode'].dirty"></p-message>
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            شماره همراه <label style="color: red">*</label>:
+          </div>
+          <div class="ui-grid-col-6">
+            <input pInputText type="text" pKeyFilter="num" formControlName="mobile" placeholder="" maxlength="11"/>
+          </div>
+          <div class="ui-grid-col-4">
+            <p-message severity="error" text="شماره موبایل را به درستی وارد نمائید" *ngIf="!userform.controls['mobile'].valid&&userform.controls['mobile'].dirty"></p-message>
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            ایمیل <label style="color: red">*</label>:
+          </div>
+          <div class="ui-grid-col-6">
+            <input type="text" pInputText pKeyFilter="email" formControlName="email" >
+
+          </div>
+          <div class="ui-grid-col-4">
+            <p-message severity="error" text="ایمیل را به درستی وارد نمائید" *ngIf="!userform.controls['email'].valid&&userform.controls['email'].dirty"></p-message>
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            گذر واژه<label style="color: red">*</label>:
+          </div>
+          <div class="ui-grid-col-6">
+            <input type="password" pPassword formControlName="password" promptLabel="رمز را وارد نمائید" weakLabel="ضعیف" mediumLabel="متوسط" strongLabel="قوی"/>
+          </div>
+          <div class="ui-grid-col-4">
+            <p-message severity="error" text="خلاصه مقاله" *ngIf="!userform.controls['password'].valid&&userform.controls['password'].dirty"></p-message>
+          </div>
+        </div>
+
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            نوع مدرک<label style="color: red">*</label>:
+          </div>
+          <div class="ui-grid-col-6" dir="ltr">
+            <p-dropdown [options]="mardak" [showTransitionOptions]="'1ms'" [hideTransitionOptions]="'1ms'" formControlName="madrak" [filter]="true"></p-dropdown>
+          </div>
+          <div class="ui-grid-col-4">
+            <p-message style="text-align: right" severity="error" text="خلاصه مقاله" *ngIf="!userform.controls['madrak'].valid&&userform.controls['madrak'].dirty"></p-message>
+          </div>
+        </div>
+
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2">
+            تصویر پروفایل :
+          </div>
+          <div class="ui-grid-col-8">
+            <p-fileUpload name="myfile[]" url="./upload.php" uploadLabel="آپلود" chooseLabel="انتخاب تصویر" cancelLabel="انصراف"></p-fileUpload>
+          </div>
+          <div class="ui-grid-col-2">
+          </div>
+        </div>
+        <div class="ui-grid-row" style="margin-bottom:8rem">
+          <div class="ui-grid-col-2">
+            رزومه مدرس:
+          </div>
+          <div class="ui-grid-col-8">
+            <quill-editor formControlName="cv"></quill-editor>
+
+          </div>
+          <div class="ui-grid-col-2"></div>
+        </div>
+
+
+      </div>
+
+  </form>
+  <p-footer>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-12"></div>
+      <div class="ui-grid-col-6">
+        <button pButton type="submit" label="ویرایش مشخصات مدرس" [disabled]="!userform.valid"></button>
+      </div>
+      <div class="ui-grid-col-4"></div>
+    </div>
+  </p-footer>
+</p-dialog>

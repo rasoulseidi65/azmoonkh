@@ -1,0 +1,135 @@
+<div class="container rtl">
+  <app-header></app-header>
+
+  <div class="d-flex justify-content-center  mr-2 mt-4 mb-5">
+
+    <div class="card card-cascade narrower " style="border-radius: 10px!important;
+    border: 2px solid #a5becf;">
+
+      <!-- Card image -->
+      <div class="view view-cascade overlay">
+        <div class="mt-2">
+          <p class="text-center" style="font-family: IRANSansWeb_Bold;"><i class="fas fa-user m-2"></i>داوطلب گرامی</p>
+        </div>
+        <a>
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+      <div class="text-center" style="font-family: IRANSansWeb_Bold; font-size: 18px;font-style: revert">      </div>
+
+      <!-- Card content -->
+      <div class="card-body card-body-cascade ">
+        <form>
+          <div class="form-group row d-flex justify-content-center mb-5">
+
+            <ul class="list-group list-group-flush ml-4" style="list-style-type: none!important;">
+
+              <li class="list-group-item" style="color: #333">1- برای ورود به پروفایل می توان از یکی از  روش های <span style="color: #D32F2F">(کد ملی-شماره همراه) و (کد ملی-  شماره داوطلبی)</span>  وارد شوید.
+
+              </li>
+
+
+            </ul>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="row" style="margin-top: 20px;margin-bottom: 20px">
+    <div class="col-md-6 col-lg-6">
+      <form [formGroup]="studentForm1" (ngSubmit)="onSubmit1()">
+      <p-panel class="panel0">
+        <p-header>
+          روش اول: کدملی و شماره همراه
+        </p-header>
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-3 text-right" >
+              کد ملی: <label style="color: red">*</label>:
+            </div>
+            <div class="ui-grid-col-5">
+              <input  pInputText  pKeyFilter="num" maxlength="10" formControlName="password"
+                      dir="ltr"/>
+
+              <!--              <input pInputText type="text" formControlName="nationalCode" placeholder=""/>-->
+            </div>
+            <div class="ui-grid-col-4 text-right">
+              <p-message severity="error" text="کد ملی را صحیح وارد نمائید "
+                         *ngIf="!studentForm1.controls['password'].valid&&studentForm1.controls['password'].dirty"></p-message>
+            </div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-3 text-right">
+              شماره همراه:<label style="color: red">*</label>:
+            </div>
+            <div class="ui-grid-col-5">
+              <input pInputText formControlName="mobile" pKeyFilter="num" maxlength="11"  dir="ltr"/>
+
+              <!--              <input pInputText type="text" formControlName="mobile" placeholder=""/>-->
+            </div>
+            <div class="ui-grid-col-4">
+              <p-message severity="error" text="شماره همراه را صحیح وارد نمائید"
+                         *ngIf="!studentForm1.controls['mobile'].valid&&studentForm1.controls['mobile'].dirty"></p-message>
+            </div>
+          </div>
+
+        </div>
+        <p-footer>
+          <button pButton type="submit" label="ورود" [disabled]="studentForm1.invalid"></button>
+          <div *ngIf="notFoundStud1" class="text-left"><p style="color: #D32F2F">داوطلبی با این مشخصات در سامانه موجود نمی باشد.</p></div>
+
+        </p-footer>
+
+      </p-panel>
+      </form>
+    </div>
+    <div class="col-md-6 col-lg-6">
+      <form [formGroup]="studentForm2" (ngSubmit)="onSubmit2()">
+        <p-panel class="panel0">
+          <p-header>
+            روش دوم: کدملی و شماره داوطلبی
+          </p-header>
+          <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-3 text-right">
+                 کد ملی:<label style="color: red">*</label>:
+              </div>
+              <div class="ui-grid-col-5">
+                <input pInputText formControlName="password" [ngModel]="form2.password | enNum" (ngModelChange)="form2.password=$event"  pKeyFilter="num" maxlength="11"   dir="ltr"/>
+
+                <!--              <input pInputText type="text" formControlName="mobile" placeholder=""/>-->
+              </div>
+              <div class="ui-grid-col-4">
+                <p-message severity="error" text="شماره ملی را صحیح وارد نمائید"
+                           *ngIf="!studentForm2.controls['password'].valid&&studentForm2.controls['password'].dirty"></p-message>
+              </div>
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-3 text-right">
+                شماره داوطلبی: <label style="color: red">*</label>:
+              </div>
+              <div class="ui-grid-col-5">
+                <input  pInputText  pKeyFilter="num"  maxlength="10"  formControlName="candidateNumber" [ngModel]="form2.candidateNumber | enNum" (ngModelChange)="form2.candidateNumber=$event"
+                        dir="ltr"/>
+
+                <!--              <input pInputText type="text" formControlName="nationalCode" placeholder=""/>-->
+              </div>
+              <div class="ui-grid-col-4">
+                <p-message severity="error" text=" شماره داوطلبی را صحیح وارد نمائید "
+                           *ngIf="!studentForm2.controls['candidateNumber'].valid&&studentForm2.controls['candidateNumber'].dirty"></p-message>
+              </div>
+            </div>
+          </div>
+          <p-footer>
+            <button pButton type="submit" label="ورود" [disabled]="studentForm2.invalid"></button>
+            <div *ngIf="notFoundStud2" class="text-left"><p style="color: #D32F2F">داوطلبی با این مشخصات در سامانه موجود نمی باشد.</p></div>
+          </p-footer>
+
+        </p-panel>
+      </form>
+    </div>
+  </div>
+</div>

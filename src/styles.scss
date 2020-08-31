@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: 'yekan';
+  src: url(./assets/fonts/Yekan.eot);
+  src: url(./assets/fonts/Yekan.eot?#iefix) format("embedded-opentype"),
+  url(./assets/fonts/Yekan.woff) format("woff"),
+  url(./assets/fonts/Yekan.ttf) format("truetype"),
+  url(./assets/fonts/Yekan.svg#BYekan) format("svg");
+  font-weight: normal;
+  font-style: normal
+}
+
+@font-face {
+  font-family: 'IRANSansWeb';
+  src: url('./assets/fonts/IRANSansWeb(FaNum)_Light.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'IRANSansWeb_Bold';
+  src: url('./assets/fonts/IRANSansWeb(FaNum)_Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url(./assets/fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2) format('woff2');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;  background-color: #e0f2f1;}
+/*.modal{*/
+/*position: absolute;*/
+/*}*/

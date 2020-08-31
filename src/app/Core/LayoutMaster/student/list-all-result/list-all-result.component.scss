@@ -1,0 +1,7 @@
+*{font-family: IRANSansWeb;cursor: pointer}
+button{font-family: IRANSansWeb_Bold;}
+:host::ng-deep.ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item{
+  text-align: right!important;
+  font-family: IRANSansWeb;
+}
+:host::ng-deep.ui-dropdown label.ui-dropdown-label{font-family: IRANSansWeb;}

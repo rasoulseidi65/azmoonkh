@@ -1,0 +1,57 @@
+
+  <div class="container rtl">
+  <app-header></app-header>
+
+  <div class="mt-5 mb-5 d-flex justify-content-center">
+    <div style="width: 40em">
+      <form [formGroup]="userform">
+        <p-panel>
+          <p-header class="headerPanel">
+            فرم ورود به پنل مدرسه
+          </p-header>
+          <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-3">
+                نام کاربری :<label style="color: red">*</label>:
+              </div>
+              <div class="ui-grid-col-5">
+                <input pInputText formControlName="username"   dir="ltr" />
+
+                <!--              <input pInputText type="text" formControlName="mobile" placeholder=""/>-->
+              </div>
+              <div class="ui-grid-col-4">
+                <p-message severity="error" text="نام کاربری را صحیح وارد نمائید"
+                           *ngIf="!userform.controls['username'].valid&&userform.controls['username'].dirty"></p-message>
+              </div>
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-3">
+                گذر واژه : <label style="color: red">*</label>:
+              </div>
+              <div class="ui-grid-col-5">
+                <input  pPassword  type="password"  formControlName="password"  promptLabel="رمز را وارد نمائید" weakLabel="ضعیف" mediumLabel="متوسط" strongLabel="قوی"
+                        dir="ltr"/>
+
+                <!--              <input pInputText type="text" formControlName="nationalCode" placeholder=""/>-->
+              </div>
+              <div class="ui-grid-col-4">
+                <p-message severity="error" text="گذر واژه را وارد نمائید "
+                           *ngIf="!userform.controls['password'].valid&&userform.controls['password'].dirty"></p-message>
+              </div>
+            </div>
+          </div>
+          <div class="text-center"><p-progressSpinner *ngIf="resultData" [style]="{width: '50px', height: '50px'}"></p-progressSpinner></div>
+
+          <p-footer>
+            <button pButton type="submit" label="ورود" [disabled]="!userform.valid" (click)="onSubmit()"></button>
+            <div *ngIf="existAdmin" class="text-left"><p style="color: #D32F2F">اطلاعات وارد شده اشتباه می باشد.</p></div>
+
+          </p-footer>
+        </p-panel>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+
+</div>

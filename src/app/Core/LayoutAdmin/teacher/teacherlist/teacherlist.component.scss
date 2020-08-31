@@ -1,0 +1,49 @@
+:host::ng-deep.ui-table-thead{
+  font-family: IRANSansWeb_Bold!important;
+  color: #fff!important;
+  background: #0099CC!important;
+}
+
+:host::ng-deep.ui-table-tbody{
+  font-family: IRANSansWeb_Light!important;
+
+
+}
+:host::ng-deep.ui-paginator {
+  background-color: #f1eaea!important;
+
+}
+.input-filter{
+  font-family: IRANSans_Light!important;
+}
+:host::ng-deep.ui-button-text{
+  font-family: IRANSans_Light!important;
+}
+#text-delete-dialog{
+  font-family: IRANSans_Light!important;
+}
+:host::ng-deep.ui-dialog .ui-dialog-titlebar {
+  //border: 1px solid #c8c8c8;
+  background-color: #FF8800!important;
+  color:white!important;
+  font-family: IRANSans_Light!important;
+}
+:host::ng-deep.pi.pi-times{
+  color:white!important;
+}
+:host::ng-deep.ui-table .ui-table-thead > tr.title-table > th{
+  background-color: #FF8800!important;
+  color:white!important;
+}
+.ui-grid-row{
+  font-family: IRANSans_Light!important;
+}
+:host::ng-deep.ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item{
+  text-align: right!important;
+}
+:host::ng-deep p-inputmask.ng-dirty.ng-invalid > .ui-inputtext, .ui-inputtext.ng-dirty.ng-invalid {
+  border: 1.3px solid #ff0808!important;
+}
+:host::ng-deep.ui-inputtext.ng-valid {
+  border: 1.3px solid #00C851 !important;
+}

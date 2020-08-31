@@ -1,0 +1,98 @@
+<div id="printSectionId" class="mt-5" dir="rtl">
+  <div class="row" dir="rtl">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8 border border-dark" dir="rtl">
+      <div class="col-md-12 col-lg-12">
+        <form dir="rtl">
+          <table class="table" dir="rtl" style="margin-bottom: -20px">
+            <tbody>
+            <tr >
+              <td class="text-center"><img src="./assets/img/logoAzmoon.png" style="height: 100px;width: 100px">
+              </td>
+              <td class="text-center">
+
+                <p>کارت ورود به جلسه آزمون</p>
+                <p>آزمون ورودی مدارس نمونه ناحیه 1 خرم آباد</p>
+                <p>سال تحصیلی 1400-1399</p>
+              </td>
+              <td class="text-center">
+
+                <img class="border border-dark" [src]="profilImage"
+                style="height: 100px;width: 100px"> <br/><p style="border-style: double;border-width: thin;margin-top: 5px">شماره داوطلبی:{{student['candidateNumber']}}</p>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <table class="table">
+            <tbody>
+            <tr>
+              <th scope="row">نام:</th>
+              <th scope="row">{{student['firstName']}}</th>
+              <th scope="row">نام خانوادگی:</th>
+              <th scope="row">{{student['lastName']}}</th>
+              <th class="ml-5">کد ملی:</th>
+              <th scope="row">{{student['nationalCode']}}</th>
+            </tr>
+            <tr *ngIf="student['schoolID']=='5eefe9f61340b80d48d8d2f7'|| student['schoolID']=='5eefea141340b80d48d8d2f8'">
+              <th>نام مدرسه انتخابی:</th>
+              <th>{{schoolName}}</th>
+              <th>تاریخ آزمون :</th>
+              <th>1399/05/12</th>
+              <th>ساعت آزمون :</th>
+              <th>8:00 صبح</th>
+            </tr>
+            <tr *ngIf="student['schoolID']=='5eefea291340b80d48d8d2f9'|| student['schoolID']=='5eefea2f1340b80d48d8d2fa'">
+              <th>نام مدرسه انتخابی:</th>
+              <th>{{schoolName}}</th>
+              <th>تاریخ آزمون :</th>
+              <th> سه شنبه 1399/05/14</th>
+              <th>ساعت آزمون :</th>
+              <th>8:00 صبح</th>
+            </tr>
+            <tr>
+              <th>آدرس حوزه امتحانی:</th>
+              <th scope="col" colspan="5" class="text-right">{{student['testArea']}}</th>
+
+            </tr>
+            </tbody>
+          </table>
+          <!--       <button (click)="printToCart('printSectionId')" class="button">Print</button>-->
+        </form>
+      </div>
+      <div class="col-md-12 col-lg-12" dir="rtl">
+        <label style="font-size: 11px;" dir="rtl" class="text-right">اینجانب ......................فرزند ..................... با کدملی
+          .............................صحت اطلاعات درج شده در کارت ورود به جلسه را با مشخصات خود تائید می نمایم.</label>
+        <label style="font-size: 11px;" class="text-left">اثر انگشت</label>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2"></div>
+  <hr style="border-style: dashed;border-width: medium"/>
+  <div class="row mt-5" dir="rtl">
+
+    <div class="col-md-2"></div>
+
+    <div class="col-md-8 border border-dark">
+      <p class="text-center">توضیحات مهم</p>
+      <ul style="list-style-type: none" class="text-right" dir="rtl">
+
+        <li class="mt-3">1-به خاطر رعایت پروتکل های بهداشتی، داشتن ماسک الزامی است. همچنین از آنجایی که پذیرایی از طرف ستاد پیشگیری از کرونا ممنوع می باشد، آب و تغذیه همراه خود داشته باشید.
+        </li>
+        <li class="mt-3">2-همراه داشتن هر گونه کتاب، جزوه، یاداشت و لوازم الکترونیکی نظیر تلفن همراه ممنوع است. همراه داشتین این قبیل وسایل، حتی اگر از آنها استفاده نکنید یا خاموش باشد تقلب محسوب می شود.
+        </li>
+        <li class="mt-3">3-جهت شرکت در امتحان، همراه داشتن این کارت الزامی است.</li>
+        <li class="mt-3">4-حوزه محل برگزاری آزمون را قبلاً شناسایی نموده و یک ساعت قبل از شروع آزمون در محل حوزه امتحانی حاضر
+          باشید.
+        </li>
+        <li class="mt-3">5-استفاده از ماشین حساب ممنوع است.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="de-flex flex-center">
+<!--  <button class="btn btn-success" [useExistingCss]="true"  printSectionId="printSectionId" ngxPrint type="button" >چاپ</button>-->
+  <button pButton type="button" [useExistingCss]="true" label="چاپ" printSectionId="printSectionId" ngxPrint icon="pi pi-print" iconPos="right"></button>
+</div>
+<!--<button [useExistingCss]="true" printSectionId="printSectionId" ngxPrint>چاپ</button>-->

@@ -1,0 +1,83 @@
+
+<!--<div class="alert alert-secondary text-center"> برای جستجوی داوطلب، در ستون های شماره داوطلب، شماره ملی، نام، نام خانوادگی،نام پدر، شماره همراه، تاریخ تولد، کدپستی را وارد کنید، سیستم به طور خودکار نتیجه جستجو را نمایش می دهد .</div>-->
+<div class="ui-grid-row p-dir-rev mt-1 mb-1" dir="rtl">
+
+  <div class="ui-grid-col-2 text-center mt-2">
+    <button pButton type="button" class="ui-button-info text-white" [useExistingCss]="true"  label="چاپ" printSectionId="printSectionId" ngxPrint icon="pi pi-print" iconPos="right"></button>
+  </div>
+  <div class="ui-grid-col-3  text-center mt-2">
+    <button pButton type="button" class="ui-button-info" (click)="exportToExcel()" label="خروجی اکسل" icon="pi pi-file" iconPos="right"></button>
+  </div>
+  <div class="ui-grid-col-3 text-right">
+    <div>
+      <label class="mr-1">لیست گیری بر اساس نام مدرسه:</label>
+      <!--          <input  class="input-filter" type="text" pInputText size="50" placeholder="جستجوی سراسری" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">-->
+      <p-dropdown [options]="school" [showTransitionOptions]="'1ms'" [hideTransitionOptions]="'1ms'" [filter]="true"
+                  [(ngModel)]="inputSchoolNameSearch" (onChange)="searchSchool()"></p-dropdown>
+
+    </div>
+  </div>
+  <div class="ui-grid-col-3 text-right">
+    <div>
+      <label class="mr-1">لیست گیری بر اساس پایه:</label>
+      <!--          <input  class="input-filter" type="text" pInputText size="50" placeholder="جستجوی سراسری" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">-->
+      <p-dropdown [options]="base" [showTransitionOptions]="'1ms'" [hideTransitionOptions]="'1ms'" [filter]="true"
+                  [(ngModel)]="inputSchoolNameSearch" ></p-dropdown>
+
+    </div>
+  </div>
+
+</div>
+
+<div id="printSectionId" #epltable dir="rtl">
+  <p-table [value]="studentModels" #dt [columns]="cols" [paginator]="true" [rows]="2000" dir="rtl"  >
+
+    <ng-template pTemplate="header">
+      <tr class="title-table">
+        <th style="width: 30%" class="text-center">ردیف</th>
+        <th style="width: 70%" class="text-center">شماره داوطلب </th>
+        <th style="width: 70%" class="text-center">شماره ملی </th>
+        <th style="width: 70%" class="text-center">نام داوطلب</th>
+        <th style="width: 70%" class="text-center">نام خانوادگی</th>
+        <th style="width: 70%" class="text-center">نام پدر </th>
+        <th style="width: 70%" class="text-center">شماره همراه</th>
+        <th style="width:70%" class="text-center">تراز داوطلب</th>
+        <th style="width: 70%" class="text-center">نتیجه </th>
+
+      </tr>
+<!--      <tr>-->
+<!--        <th></th>-->
+<!--        <th *ngFor="let col of cols" [ngSwitch]="col.field" >-->
+<!--          <input style="width: 100%" class="input-filter text-center" placeholder="جستجوی  " *ngSwitchCase="'candidateNumber'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">-->
+<!--          <input  style="width: 100%" class="input-filter text-center " placeholder="جستجوی  " *ngSwitchCase="'nationalCode'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">-->
+<!--          <input  style="width: 100%" class="input-filter text-center" placeholder="جستجوی " *ngSwitchCase="'firstName'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">-->
+<!--          <input   style="width: 100%" class="input-filter text-center" placeholder="جستجوی  " *ngSwitchCase="'lastName'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">-->
+<!--          <input   style="width: 100%" class="input-filter text-center" placeholder="جستجوی  " *ngSwitchCase="'fatherName'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">-->
+<!--          <input   style="width: 100%" class="input-filter text-center" placeholder="جستجوی  " *ngSwitchCase="'mobile'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">-->
+
+<!--        </th>-->
+<!--      </tr>-->
+    </ng-template>
+    <ng-template pTemplate="body" let-student let-rowIndex="rowIndex">
+      <tr>
+        <td class="text-center">{{rowIndex + 1}}</td>
+        <td class="text-center">{{student['students'].candidateNumber}}</td>
+        <td class="text-center">{{student['students'].nationalCode}}</td>
+        <td class="text-center">{{student['students'].firstName}}</td>
+        <td class="text-center">{{student['students'].lastName}}</td>
+        <td class="text-center">{{student['students'].fatherName}}</td>
+        <td class="text-center">{{student['students'].mobile}}</td>
+        <td class="text-center text-dark font-weight-bold">{{student['students'].score}}</td>
+        <td class="text-center success-color text-dark font-weight-bold">{{student['students'].acception}}</td>
+<!--        <td class="text-center danger-color text-dark font-weight-bold" *ngIf="student['students'].acception=='غایب'">{{student['students'].acception}}</td>-->
+
+<!--        <td class="text-center warning-color text-dark font-weight-bold" *ngIf="student['students'].acception=='عدم پذیرش'">{{student['students'].acception}}</td>-->
+      </tr>
+    </ng-template>
+
+  </p-table>
+
+</div>
+<div class="text-center mt-5"><p-progressSpinner *ngIf="resultData" [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
+</div>
+

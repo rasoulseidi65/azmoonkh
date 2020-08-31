@@ -1,0 +1,921 @@
+<div class="container" dir="rtl">
+  <app-header></app-header>
+  <form [formGroup]="formGroup" id="pc">
+
+    <mat-horizontal-stepper labelPosition="bottom" linear #stepper1 formArrayName="formArray" dir="rtl"
+                            class="white border-stepper mb-5">
+      <mat-step formGroupName="0" [stepControl]="formArray?.get([0])">
+
+        <ng-template matStepLabel>آپلود عکس داوطلب</ng-template>
+
+        <div class="mt-5 text-right">
+          <p-fieldset [toggleable]="true" [transitionOptions]="'2ms'" styleClass="grey lighten-5" dir="rtl">
+            <p-header>داوطلب گرامی</p-header>
+            <div class="row">
+              <div class="col-md-12 col-lg-6 col-xs-12 col-sm-12">
+                <div class="form-group justify-content-center mb-5">
+                  <ul class="list-group list-group-flush ml-4 text-right" style="list-style-type: none!important;">
+                    <label>عکس انتخاب شده باید طبق استاندارهای زیر باشد :</label>
+                    <li class="list-group-item grey lighten-5"
+                        style="color: #333;list-style-type: none;">
+                      1- اندازه عکس اسکن شده باید حداکثر 400*300 پیکسل و حداقل 300*200 با حجم حداکثر 2 مگابایت
+                    </li>
+                    <li class="list-group-item grey lighten-5"
+                        style="color: #333;list-style-type: none;">
+                      2- عکس اسکن شده فقط باید با فرمت های <span style="color:red">JPG/PNG/JPEG</span> باشد
+                    </li>
+                    <li class="list-group-item grey lighten-5"
+                        style="color: #333;list-style-type: none;">
+                      3- عکس تمام رخ 4*3 که در سال جاری گرفته شده باشد.
+                    </li>
+                    <li class="list-group-item grey lighten-5"
+                        style="color: #333;list-style-type: none;">
+                      4- تصوير داوطلب باید ، كاملا واضح و بدون اثر مهر ، منگنه و هرگونه لکه باشد.
+                    </li>
+                    <li class="list-group-item grey lighten-5"
+                        style="color: #333;list-style-type: none;">
+                      5- اسکن عكس از روی كارت های شناسایی كارت ملی ، شناسنامه و مدارك مشابه قابل قبول نيست.
+                    </li>
+                    <li class="list-group-item grey lighten-5"
+                        style="color: #333;list-style-type: none;">
+                      6- برای آپلود عکس ابتدای روی گزینه <span style="color:red">(انتخاب عکس)</span> بزنید، سپس از سیستم
+                      خود عکس را انتخاب کنید و در انتها روی گزینه <span style="color:red">(آپلود عکس)</span> کلیک کنید
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-12 col-lg-6 col-xs-12 col-sm-12">
+                آپلود عکس :
+                <div class="ui-grid-col-10">
+                  <p-fileUpload name="myfile[]" customUpload="true"
+                                invalidFileSizeMessageDetail="حداکثر سایز عکس 2 مگابایت می باشد"
+                                invalidFileSizeMessageSummary="اندازه فایل بیش از حد مجاز می باشد"
+                                accept="image/jpeg,image/png " maxFileSize="2000000"
+                                (uploadHandler)="onUpload($event)" uploadLabel="آپلود عکس" chooseLabel="انتخاب عکس"
+                                cancelLabel="انصراف"></p-fileUpload>
+                </div>
+                <div class="ui-grid-col-2">
+                  <input type="text" pInputText style="width: 100%" [(ngModel)]="student.image" [hidden]="true"
+                         formControlName="image" required/>
+                </div>
+
+              </div>
+            </div>
+            <div *ngIf="student.image" class="alert alert-info text-center font-weight-bold">داوطلب گرامی: عکس با موفقیت
+              آپلود شد، روی <span style="color:blue">دکمه بعدی</span> جهت ادامه ثبت نام کلیک کنید
+            </div>
+
+          </p-fieldset>
+        </div>
+        <button matStepperNext class="mt-5 ui-button-rounded" pButton type="button" label="مرحله بعدی" icon="pi pi-angle-left" iconPos="left" [disabled]="formArray.get([0]).invalid"></button>
+<!--        <button matStepperNext class="btn primary-color btn-rounded float-left text-white mt-5"-->
+<!--                [disabled]="formArray.get([0]).invalid"-->
+<!--        >مرحله بعدی <i class="fas fa-1x text-white fa-angle-left ml-3"></i>-->
+<!--        </button>-->
+        <!--</div>-->
+        <!--pc-->
+
+      </mat-step>
+      <mat-step formGroupName="1" [stepControl]="formArray?.get([1])">
+
+        <ng-template matStepLabel>مشخصات فردی</ng-template>
+        <br>
+        <div class="alert alert-info text-center mb-5 text-right" style="border-radius: 10px">
+          <div class=" text-dark ml-4 font-weight-bold text-right">داوطلب گرامی!</div>
+          در این مرحله مشخصات فردی و تحصیلی خود را به صورت دقیق وارد نمائید
+        </div>
+
+
+        <div class="mt-5 text-right">
+          <p-fieldset [toggleable]="true" [transitionOptions]="'2ms'" styleClass="grey lighten-5" dir="rtl">
+            <p-header>مشخصات فردی</p-header>
+            <div class="row">
+              <div class="col-md-12 col-lg-6 col-xs-12 col-sm-12">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">کد ملی:</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%;text-align: left"
+                           [(ngModel)]="student.nationalCode" maxlength="10"
+                           formControlName="nationalCode" pKeyFilter="num" required disabled/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">نام:</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" [(ngModel)]="student.firstName"
+                           formControlName="firstName" required/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">نام خانوادگی :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" [(ngModel)]="student.lastName"
+                           formControlName="lastName" required/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3  col-md-3 col-lg-3 col-form-label">نام پدر :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" [(ngModel)]="student.fatherName"
+                           formControlName="fatherName"/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">جنسیت :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" [(ngModel)]="student.gender"
+                           formControlName="gender" required disabled/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">شماره همراه :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%;text-align: left" [(ngModel)]="student.mobile"
+                           maxlength="11"
+                           formControlName="mobile" pKeyFilter="num" required disabled/>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 col-lg-6 col-xs-12 col-sm-12">
+
+                <div class="form-group row">
+                  <div class="col-sm-3  col-md-3 col-lg-3"> <label class=" col-form-label">سریال شناسنامه :</label></div>
+                  <div class="col-sm-9 col-md-9 col-lg-9 d-flex">
+                    <div class=" col-md-3 col-lg-3">
+                      <input type="text" pInputText style="width: 100%"
+                             maxlength="3"
+                             placeholder="ردیف" formControlName="radif" [(ngModel)]="radif" required/>
+                    </div>
+                    <div class=" col-md-4 col-lg-4">
+                      <input type="text" pInputText style="width: 100%" maxlength="2"
+                             pKeyFilter="num" placeholder="سری " formControlName="seri" [(ngModel)]="seri" required/>
+                    </div>
+                    <div class=" col-md-4 col-lg-4">
+                      <input type="text" pInputText style="width: 100%" maxlength="6"
+                             pKeyFilter="num" placeholder="سریال " formControlName="serialNumber" [(ngModel)]="serial"
+                             required/>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3  col-md-3 col-lg-3 col-form-label">نمونه:</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <img src="./assets/img/serialNo.jpg">
+
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">تاریخ تولد :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" formControlName="birthday"
+                           [(ngModel)]="student.birthday" />
+
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">نمونه مثال  :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <label style="color: red">1399/01/03</label>
+
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">کد پستی :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input pInputText style="width: 100%;text-align: left" [(ngModel)]="student.postalCode"
+                           formControlName="postalCode" pKeyFilter="num" required/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">آدرس :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                   <textarea rows="5" cols="30" pInputTextarea style="width: 100%"
+                             formControlName="address" [(ngModel)]="student.address"
+                             placeholder="" required></textarea>
+
+                    <!--                    <input type="text" pInputText style="width: 100%" formControlName="address"/>-->
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </p-fieldset>
+        </div>
+        <div class="mt-5 text-right">
+          <p-fieldset [toggleable]="true" [transitionOptions]="'2ms'" styleClass="grey lighten-5" dir="rtl">
+            <p-header>مشخصات تحصیلی</p-header>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label">محل تحصیل جدید :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" placeholder="{{student.schoolName}}" disabled
+                    />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label">محل تحصیل قبلی:</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" [(ngModel)]="student.previousSchool"
+                           formControlName="previousSchool" required/>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-md-6">
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label">آدرس محل تحصیل :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.addressSchool}}"/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-12 col-md-4 col-lg-4 col-form-label">تلفن محل تحصیل جدید :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.tellSchool}}"
+                           pKeyFilter="num"/>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </p-fieldset>
+        </div>
+        <div class="mt-5 text-right" *ngIf="quota">
+          <p-fieldset [toggleable]="true" [transitionOptions]="'2ms'" styleClass="grey lighten-5" dir="rtl">
+            <p-header>مشخصات سهمیه</p-header>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group row">
+                  <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="p-grid">
+                      <div class="p-col-12 mt-2 mr-2"><p-radioButton name="group2" value="1" [(ngModel)]="student.quotaPriority" formControlName="quotaPriority" label="الف)-فرزندان شاهد"  inputId="preopt1" (onClick)="setQuota()"></p-radioButton></div>
+                      <div class="p-col-12 mt-2 mr-2"><p-radioButton name="group2" value="2" [(ngModel)]="student.quotaPriority" formControlName="quotaPriority" label="ب)- فرزندان جانباز 50 درصد به بالا و آزادگان با بیش از 3 سال سابقه اسارت" (onClick)="setQuota()" inputId="preopt2"></p-radioButton></div>
+                      <div class="p-col-12 mt-2 mr-2"><p-radioButton name="group2" value="3" [(ngModel)]="student.quotaPriority" formControlName="quotaPriority" label="ج)- فرزندان جانباز 25 درصد تا 49 درصد و آزادگان با بیش از 6 ماه سابقه اسارت" (onClick)="setQuota()" inputId="preopt3"></p-radioButton></div>
+                      <div class="p-col-12 mt-2 mr-2"><p-radioButton name="group2" value="4"  [(ngModel)]="student.quotaPriority" formControlName="quotaPriority" label="د)- فرزندان جانباز زیر 25 درصد  و آزادگان با کمتر از 6 ماه سابقه اسارت" (onClick)="setQuota()" inputId="preopt4"></p-radioButton></div>
+                      <div class="p-col-12 mt-2 mr-2"><p-radioButton name="group2" value="5"  [(ngModel)]="student.quotaPriority" formControlName="quotaPriority" label="ه)- هیچکدام" (onClick)="setQuota()" inputId="preopt5"></p-radioButton></div>
+
+                    </div>
+
+                  </div>
+                </div>
+
+
+              </div>
+
+            </div>
+          </p-fieldset>
+        </div>
+        <div>
+          <button matStepperNext class="mt-5 ui-button-rounded float-left" pButton type="button" label="مرحله بعدی" icon="pi pi-angle-left" iconPos="left" [disabled]="formArray.get([1]).invalid"></button>
+
+<!--          <button matStepperNext class="btn primary-color btn-rounded float-left text-white"-->
+<!--                  [disabled]="formArray.get([1]).invalid"-->
+<!--          >مرحله بعدی <i class="fab fa-1x text-white fa-angle-left ml-3"></i>-->
+<!--          </button>-->
+          <button matStepperPrevious class="mt-5 ui-button-rounded float-right" pButton type="button" label="برگشت " icon="pi pi-angle-right" iconPos="right" ></button>
+
+<!--          <button matStepperPrevious class="btn primary-color btn-rounded  float-right text-white "><i-->
+<!--            class="fas fa-1x text-white fa-angle-right mr-3"></i>برگشت-->
+<!--          </button>-->
+        </div>
+
+      </mat-step>
+      <mat-step formGroupName="2" [stepControl]="formArray?.get([2])">
+        <ng-template matStepLabel>پیش نمایش</ng-template>
+
+        <div class="mt-5 text-right" >
+          <p-fieldset [toggleable]="true" [transitionOptions]="'2ms'" styleClass="grey lighten-5" dir="rtl">
+            <p-header>مشخصات فردی</p-header>
+            <div class="row text-right">
+              <div class="col-md-12 col-lg-6 col-xs-12 col-sm-12">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">کد ملی:</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" placeholder="{{student.nationalCode}}" disabled/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-md-3 col-lg-3 col-form-label">نام:</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.firstName}}"/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">نام خانوادگی :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.lastName}}"/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3  col-md-3 col-lg-3 col-form-label">نام پدر :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.fatherName}}"/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">جنسیت :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.gender}}"/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">شماره همراه :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.mobile}}"/>
+                  </div>
+                </div>
+                <div class="form-group row" *ngIf="quota">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">نوع سهمیه  :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.quotaTitle}}"/>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 col-lg-6 col-xs-12 col-sm-12">
+
+                <div class="form-group row">
+                  <label class="col-sm-3  col-md-3 col-lg-3 col-form-label">سریال شناسنامه :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8 d-flex">
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                      <input type="text" pInputText style="width: 100%"
+                             disabled placeholder="{{radif}}"/>
+                    </div>
+                    <div class="col-sm-12 col-md-4 col-lg-4">
+                      <input type="text" pInputText style="width: 100%" maxlength="2"
+                             disabled pKeyFilter="num" placeholder="{{seri}} "/>
+                    </div>
+                    <div class="col-sm-12 col-md-4 col-lg-4">
+                      <input type="text" pInputText style="width: 100%" maxlength="6"
+                             disabled pKeyFilter="num" placeholder="{{serial}} "/>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">تاریخ تولد :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.birthday}}"/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">کد پستی :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.postalCode}}"/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">آدرس :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.address}}"/>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </p-fieldset>
+        </div>
+        <div class="mt-5 text-right" >
+        <p-fieldset [toggleable]="true" [transitionOptions]="'2ms'" styleClass="grey lighten-5" dir="rtl">
+          <p-header>مشخصات تحصیلی</p-header>
+          <div class="row text-right">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label">محل تحصیل جدید :</label>
+                <div class="col-sm-12 col-md-8 col-lg-8">
+                  <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.schoolName}}"/>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label">محل تحصیل قبلی:</label>
+                <div class="col-sm-12 col-md-8 col-lg-8">
+                  <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.previousSchool}}"/>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-6">
+
+              <div class="form-group row">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label">آدرس محل تحصیل :</label>
+                <div class="col-sm-12 col-md-8 col-lg-8">
+                  <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.addressSchool}}"/>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-12 col-md-4 col-lg-4 col-form-label">تلفن محل تحصیل جدید :</label>
+                <div class="col-sm-12 col-md-8 col-lg-8">
+                  <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.tellSchool}}"/>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </p-fieldset>
+        </div>
+        <div class="ui-grid-col-2">
+          <input type="text" pInputText style="width: 100%" [(ngModel)]="activeStepper2" [hidden]="true"
+                 formControlName="previous" required/>
+        </div>
+        <div class="mt-5 mb-5  row">
+          <p-checkbox name="previous" label="          داوطلب گرامی! در صورتی که از صحت اطلاعات مطمئن هستید روی گزینه ثبت نهایی کلیک کنید
+" (onChange)="setValueStepper2()">
+          </p-checkbox>
+        </div>
+
+        <br/>
+        <br/>
+        <div >
+          <button matStepperNext class=" ui-button-rounded float-left" pButton type="button" label="ثبت نهایی" icon="pi pi-angle-left" iconPos="left" [disabled]="formArray.get([2]).invalid"  (click)="onSubmit(stepper1)"></button>
+
+<!--          <button matStepperNext [disabled]="formArray.get([2]).invalid"-->
+<!--                  class="btn primary-color btn-rounded float-left text-white"-->
+<!--                  (click)="onSubmit(stepper1)">ثبت نهایی <i class="fas fa-1x text-white fa-angle-left ml-3"></i>-->
+<!--          </button>-->
+          <button matStepperPrevious class=" ui-button-rounded float-right" pButton type="button" label="برگشت" icon="pi pi-angle-right" iconPos="right"></button>
+
+<!--          <button matStepperPrevious class="btn primary-color btn-rounded  text-white "><i-->
+<!--            class="fas fa-1x text-white fa-angle-right mr-3"></i>برگشت-->
+<!--          </button>-->
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>تایید نهایی</ng-template>
+
+        <h4 class="text-success text-center mt-2">با تشکر از انتخاب سامانه ثبت نام آنلاین آزمون مدارس نمونه دولتی ناحیه 1 خرم آباد، یک پیامک با
+          جزئیات
+          کد رهگیری و شماره داوطلبی برای شما ارسال شد</h4>
+        <h3 class="text-center text-danger text-center mt-2">{{"  شماره داوطلب :" + this.candidateNumber}}</h3>
+
+        <h3 class="text-center text-danger text-center mt-2">{{"  شماره رهگیری داوطلب :" + this.trackingCode}}
+        </h3>
+        <div class="text-center">
+          <i class="fas fa-print fa-2x text-center text-dark"></i>
+        </div>
+        <div>
+          <button class="btn btn-primary  float-left" [routerLink]="['/']">خروج</button>
+
+        </div>
+        <!--      </div>-->
+      </mat-step>
+    </mat-horizontal-stepper>
+  </form>
+  <form [formGroup]="formGroup" class="mobile">
+
+    <mat-vertical-stepper labelPosition="bottom" linear #stepper1 formArrayName="formArray" dir="rtl"
+                            class="white border-stepper mb-5">
+      <mat-step formGroupName="0" [stepControl]="formArray?.get([0])">
+
+        <ng-template matStepLabel>آپلود عکس داوطلب</ng-template>
+
+        <div class="mt-5  ">
+          <p-fieldset [toggleable]="true" [transitionOptions]="'2ms'" styleClass="grey lighten-5">
+            <p-header>داوطلب گرامی</p-header>
+            <div class="row">
+              <div class="col-md-12 col-lg-6 col-xs-12 col-sm-12">
+                <div class="form-group justify-content-center mb-5">
+                  <ul class="list-group list-group-flush ml-4" style="list-style-type: none!important;">
+                    <label>عکس انتخاب شده باید طبق استاندارهای زیر باشد :</label>
+                    <li class="list-group-item grey lighten-5"
+                        style="color: #333;list-style-type: none;">
+                      1- اندازه عکس اسکن شده باید حداکثر 400*300 پیکسل و حداقل 300*200 با حجم حداکثر 2 مگابایت
+                    </li>
+                    <li class="list-group-item grey lighten-5"
+                        style="color: #333;list-style-type: none;">
+                      2- عکس اسکن شده فقط باید با فرمت های <span style="color:red">JPG/PNG/JPEG</span> باشد
+                    </li>
+                    <li class="list-group-item grey lighten-5"
+                        style="color: #333;list-style-type: none;">
+                      3- عکس تمام رخ 4*3 که در سال جاری گرفته شده باشد.
+                    </li>
+                    <li class="list-group-item grey lighten-5"
+                        style="color: #333;list-style-type: none;">
+                      4- تصوير داوطلب باید ، كاملا واضح و بدون اثر مهر ، منگنه و هرگونه لکه باشد.
+                    </li>
+                    <li class="list-group-item grey lighten-5"
+                        style="color: #333;list-style-type: none;">
+                      5- اسکن عكس از روی كارت های شناسایی كارت ملی ، شناسنامه و مدارك مشابه قابل قبول نيست.
+                    </li>
+                    <li class="list-group-item grey lighten-5"
+                        style="color: #333;list-style-type: none;">
+                      6- برای آپلود عکس ابتدای روی گزینه <span style="color:red">(انتخاب عکس)</span> بزنید، سپس از سیستم
+                      خود عکس را انتخاب کنید و در انتها روی گزینه <span style="color:red">(آپلود عکس)</span> کلیک کنید
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-12 col-lg-6 col-xs-12 col-sm-12">
+                آپلود عکس :
+                <div class="ui-grid-col-10">
+                  <p-fileUpload name="myfile[]" customUpload="true"
+                                invalidFileSizeMessageDetail="حداکثر سایز عکس 2 مگابایت می باشد"
+                                invalidFileSizeMessageSummary="اندازه فایل بیش از حد مجاز می باشد"
+                                accept="image/jpeg,image/png " maxFileSize="2000000"
+                                (uploadHandler)="onUpload($event)" uploadLabel="آپلود عکس" chooseLabel="انتخاب عکس"
+                                cancelLabel="انصراف"></p-fileUpload>
+                </div>
+                <div class="ui-grid-col-2">
+                  <input type="text" pInputText style="width: 100%" [(ngModel)]="student.image" [hidden]="true"
+                         formControlName="image" required/>
+                </div>
+
+              </div>
+            </div>
+            <div *ngIf="student.image" class="alert alert-info text-center font-weight-bold">داوطلب گرامی: عکس با موفقیت
+              آپلود شد، روی <span style="color:blue">دکمه بعدی</span> جهت ادامه ثبت نام کلیک کنید
+            </div>
+
+          </p-fieldset>
+        </div>
+
+        <button matStepperNext class="btn primary-color btn-rounded float-left text-white mt-5"
+                [disabled]="formArray.get([0]).invalid"
+        >مرحله بعدی <i class="fas fa-1x text-white fa-angle-left ml-3"></i>
+        </button>
+        <!--</div>-->
+        <!--pc-->
+
+      </mat-step>
+      <mat-step formGroupName="1" [stepControl]="formArray?.get([1])">
+
+        <ng-template matStepLabel>مشخصات فردی</ng-template>
+        <br>
+        <div class="alert alert-info text-center mb-5 " style="border-radius: 10px">
+          <div class="text-left text-dark ml-4 font-weight-bold">داوطلب گرامی!</div>
+          در این مرحله مشخصات فردی و تحصیلی خود را به صورت دقیق وارد نمائید
+        </div>
+
+
+        <div class="mt-5  ">
+          <p-fieldset [toggleable]="true" [transitionOptions]="'2ms'" styleClass="grey lighten-5">
+            <p-header>مشخصات فردی</p-header>
+            <div class="row">
+              <div class="col-md-12 col-lg-6 col-xs-12 col-sm-12">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">کد ملی:</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%;text-align: left"
+                           [(ngModel)]="student.nationalCode" maxlength="10"
+                           formControlName="nationalCode" pKeyFilter="num" required disabled/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">نام:</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" [(ngModel)]="student.firstName"
+                           formControlName="firstName" required/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">نام خانوادگی :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" [(ngModel)]="student.lastName"
+                           formControlName="lastName" required/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3  col-md-3 col-lg-3 col-form-label">نام پدر :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" [(ngModel)]="student.fatherName"
+                           formControlName="fatherName"/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">جنسیت :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" [(ngModel)]="student.gender"
+                           formControlName="gender" required disabled/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">شماره همراه :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%;text-align: left" [(ngModel)]="student.mobile"
+                           maxlength="11"
+                           formControlName="mobile" pKeyFilter="num" required disabled/>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 col-lg-6 col-xs-12 col-sm-12">
+
+                <div class="form-group row">
+                  <label class="col-sm-3  col-md-3 col-lg-3 col-form-label">سریال شناسنامه :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                      <input type="text" pInputText style="width: 100%"
+                             maxlength="3"
+                             placeholder="ردیف" formControlName="radif" [(ngModel)]="radif" required/>
+                    </div>
+                    <div class="col-sm-12 col-md-4 col-lg-4">
+                      <input type="text" pInputText style="width: 100%" maxlength="2"
+                             pKeyFilter="num" placeholder="سری " formControlName="seri" [(ngModel)]="seri" required/>
+                    </div>
+                    <div class="col-sm-12 col-md-4 col-lg-4">
+                      <input type="text" pInputText style="width: 100%" maxlength="6"
+                             pKeyFilter="num" placeholder="سریال " formControlName="serialNumber" [(ngModel)]="serial"
+                             required/>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3  col-md-3 col-lg-3 col-form-label">نمونه:</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <img src="./assets/img/serialNo.jpg">
+
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">تاریخ تولد :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" formControlName="birthday"
+                           [(ngModel)]="student.birthday" />
+
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">نمونه مثال  :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <label style="color: red">1399/01/03</label>
+
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">کد پستی :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input pInputText style="width: 100%;text-align: left" [(ngModel)]="student.postalCode"
+                           formControlName="postalCode" pKeyFilter="num" required/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">آدرس :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                   <textarea rows="5" cols="30" pInputTextarea style="width: 100%"
+                             formControlName="address" [(ngModel)]="student.address"
+                             placeholder="" required></textarea>
+
+                    <!--                    <input type="text" pInputText style="width: 100%" formControlName="address"/>-->
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </p-fieldset>
+        </div>
+        <div class="mt-5">
+          <p-fieldset [toggleable]="true" [transitionOptions]="'2ms'" styleClass="grey lighten-5">
+            <p-header>مشخصات تحصیلی</p-header>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label">محل تحصیل جدید :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" placeholder="{{student.schoolName}}" disabled
+                    />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label">محل تحصیل قبلی:</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" [(ngModel)]="student.previousSchool"
+                           formControlName="previousSchool" required/>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-md-6">
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-4 col-lg-4 col-form-label">آدرس محل تحصیل :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.addressSchool}}"/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-12 col-md-4 col-lg-4 col-form-label">تلفن محل تحصیل جدید :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.tellSchool}}"
+                           pKeyFilter="num"/>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </p-fieldset>
+        </div>
+        <div class="mt-5" *ngIf="quota">
+          <p-fieldset [toggleable]="true" [transitionOptions]="'2ms'" styleClass="grey lighten-5">
+            <p-header>مشخصات سهمیه</p-header>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group row">
+                  <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="p-grid">
+                      <div class="p-col-12 mt-2 mr-2"><p-radioButton name="group2" value="1" [(ngModel)]="student.quotaPriority" formControlName="quotaPriority" label="الف)-فرزندان شاهد"  inputId="preopt1" (onClick)="setQuota()"></p-radioButton></div>
+                      <div class="p-col-12 mt-2 mr-2"><p-radioButton name="group2" value="2" [(ngModel)]="student.quotaPriority" formControlName="quotaPriority" label="ب)- فرزندان جانباز 50 درصد به بالا و آزادگان با بیش از 3 سال سابقه اسارت" (onClick)="setQuota()" inputId="preopt2"></p-radioButton></div>
+                      <div class="p-col-12 mt-2 mr-2"><p-radioButton name="group2" value="3" [(ngModel)]="student.quotaPriority" formControlName="quotaPriority" label="ج)- فرزندان جانباز 25 درصد تا 49 درصد و آزادگان با بیش از 6 ماه سابقه اسارت" (onClick)="setQuota()" inputId="preopt3"></p-radioButton></div>
+                      <div class="p-col-12 mt-2 mr-2"><p-radioButton name="group2" value="4"  [(ngModel)]="student.quotaPriority" formControlName="quotaPriority" label="د)- فرزندان جانباز زیر 25 درصد  و آزادگان با کمتر از 6 ماه سابقه اسارت" (onClick)="setQuota()" inputId="preopt4"></p-radioButton></div>
+                      <div class="p-col-12 mt-2 mr-2"><p-radioButton name="group2" value="5"  [(ngModel)]="student.quotaPriority" formControlName="quotaPriority" label="ه)- هیچکدام" (onClick)="setQuota()" inputId="preopt5"></p-radioButton></div>
+
+                    </div>
+
+                  </div>
+                </div>
+
+
+              </div>
+
+            </div>
+          </p-fieldset>
+        </div>
+        <div>
+          <button matStepperNext class="btn primary-color btn-rounded float-left text-white"
+                  [disabled]="formArray.get([1]).invalid"
+          >مرحله بعدی <i class="fas fa-1x text-white fa-angle-left ml-3"></i>
+          </button>
+
+          <button matStepperPrevious class="btn primary-color btn-rounded  text-white "><i
+            class="fas fa-1x text-white fa-angle-right mr-3"></i>برگشت
+          </button>
+        </div>
+
+      </mat-step>
+      <mat-step formGroupName="2" [stepControl]="formArray?.get([2])">
+        <ng-template matStepLabel>پیش نمایش</ng-template>
+
+        <div class="mt-5">
+          <p-fieldset [toggleable]="true" [transitionOptions]="'2ms'" styleClass="grey lighten-5">
+            <p-header>مشخصات فردی</p-header>
+            <div class="row">
+              <div class="col-md-12 col-lg-6 col-xs-12 col-sm-12">
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">کد ملی:</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" placeholder="{{student.nationalCode}}" disabled/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-md-3 col-lg-3 col-form-label">نام:</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.firstName}}"/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">نام خانوادگی :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.lastName}}"/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3  col-md-3 col-lg-3 col-form-label">نام پدر :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.fatherName}}"/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">جنسیت :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.gender}}"/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">شماره همراه :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.mobile}}"/>
+                  </div>
+                </div>
+                <div class="form-group row" *ngIf="quota">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">نوع سهمیه  :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.quotaTitle}}"/>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12 col-lg-6 col-xs-12 col-sm-12">
+
+                <div class="form-group row">
+                  <label class="col-sm-3  col-md-3 col-lg-3 col-form-label">سریال شناسنامه :</label>
+                  <div class="col-sm-12 col-md-9 col-lg-9 d-flex">
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                      <input type="text" pInputText style="width: 100%"
+                             disabled placeholder="{{radif}}"/>
+                    </div>
+                    <div class="col-sm-12 col-md-4 col-lg-4">
+                      <input type="text" pInputText style="width: 100%" maxlength="2"
+                             disabled pKeyFilter="num" placeholder="{{seri}} "/>
+                    </div>
+                    <div class="col-sm-12 col-md-4 col-lg-4">
+                      <input type="text" pInputText style="width: 100%" maxlength="6"
+                             disabled pKeyFilter="num" placeholder="{{serial}} "/>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">تاریخ تولد :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.birthday}}"/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">کد پستی :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.postalCode}}"/>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-3 col-md-3 col-lg-3 col-form-label">آدرس :</label>
+                  <div class="col-sm-12 col-md-8 col-lg-8">
+                    <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.address}}"/>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </p-fieldset>
+        </div>
+        <p-fieldset [toggleable]="true" [transitionOptions]="'2ms'" styleClass="grey lighten-5">
+          <p-header>مشخصات تحصیلی</p-header>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group row">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label">محل تحصیل جدید :</label>
+                <div class="col-sm-12 col-md-8 col-lg-8">
+                  <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.schoolName}}"/>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label">محل تحصیل قبلی:</label>
+                <div class="col-sm-12 col-md-8 col-lg-8">
+                  <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.previousSchool}}"/>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-6">
+
+              <div class="form-group row">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label">آدرس محل تحصیل :</label>
+                <div class="col-sm-12 col-md-8 col-lg-8">
+                  <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.addressSchool}}"/>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-12 col-md-4 col-lg-4 col-form-label">تلفن محل تحصیل جدید :</label>
+                <div class="col-sm-12 col-md-8 col-lg-8">
+                  <input type="text" pInputText style="width: 100%" disabled placeholder="{{student.tellSchool}}"/>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </p-fieldset>
+
+
+        <div class="ui-grid-col-2">
+          <input type="text" pInputText style="width: 100%" [(ngModel)]="activeStepper2" [hidden]="true"
+                 formControlName="previous" required/>
+        </div>
+        <div class="mt-5 mb-5">
+          <p-checkbox name="previous" label="          داوطلب گرامی! در صورتی که از صحت اطلاعات مطمئن هستید روی گزینه ثبت نهایی کلیک کنید
+" (onChange)="setValueStepper2()">
+          </p-checkbox>
+        </div>
+        <div>
+          <button matStepperNext [disabled]="formArray.get([2]).invalid"
+                  class="btn primary-color btn-rounded float-left text-white"
+                  (click)="onSubmit(stepper1)">ثبت نهایی <i class="fas fa-1x text-white fa-angle-left ml-3"></i>
+          </button>
+
+          <button matStepperPrevious class="btn primary-color btn-rounded  text-white "><i
+            class="fas fa-1x text-white fa-angle-right mr-3"></i>برگشت
+          </button>
+        </div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>تایید نهایی</ng-template>
+
+        <h4 class="text-success text-center mt-2">با تشکر از انتخاب سامانه ثبت نام آنلاین آزمون مدارس نمونه دولتی ناحیه 1 خرم آباد، یک پیامک با
+          جزئیات
+          کد رهگیری و شماره داوطلبی برای شما ارسال شد</h4>
+        <h3 class="text-center text-danger text-center mt-2">{{"  شماره داوطلب :" + this.candidateNumber}}</h3>
+
+        <h3 class="text-center text-danger text-center mt-2">{{"  شماره رهگیری داوطلب :" + this.trackingCode}}
+        </h3>
+        <div class="text-center">
+          <i class="fas fa-print fa-2x text-center text-dark"></i>
+        </div>
+        <div>
+          <button class="btn btn-primary  float-left" [routerLink]="['/']">خروج</button>
+
+        </div>
+        <!--      </div>-->
+      </mat-step>
+    </mat-vertical-stepper>
+  </form>
+</div>
+<!--000000000000000000000000000162168684-->

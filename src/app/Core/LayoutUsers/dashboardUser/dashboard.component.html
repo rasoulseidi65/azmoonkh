@@ -1,0 +1,72 @@
+<mat-sidenav-container class="sidenav-container" dir="rtl">
+  <mat-sidenav
+      #drawer
+      class="sidenav"
+      fixedInViewport="true"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="!(isHandset$ | async)">
+    <mat-toolbar class="title-sidebar" style="font-family: IRANSansWeb_Bold;color: white">پنل داوطلب</mat-toolbar>
+    <hr style="margin-top: -10px"/>
+    <mat-nav-list>
+      <a mat-list-item class="" [routerLink]="['/stud/panel']" style="font-family: IRANSansWeb_Bold">
+        <i class="pi pi-home ml-3"></i>پیشخوان داوطلب</a>
+
+
+      <p-accordion>
+
+
+        <mat-list-item  [routerLink]="['/stud/panel/testResult',studentID]"  style="font-family: IRANSansWeb_Bold;color: white"><i class="fas fa-list ml-3"></i>کارنامه آزمون
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item *ngIf="activeCart" style="font-family: IRANSansWeb_Bold;color: white;background-color: #0b51c5"
+                       [routerLink]="['/stud/panel/card']"><i class="fas fa-address-card ml-3"></i>دریافت کارت ورود به
+          جلسه
+        </mat-list-item>
+        <mat-list-item *ngIf="activeCartFarhang"
+                       style="font-family: IRANSansWeb_Bold;color: white;"
+                       [routerLink]="['/stud/panel/card']"><i class="fas fa-address-card ml-3"></i>دریافت کارت ورود به
+          جلسه
+        </mat-list-item>
+
+        <mat-divider></mat-divider>
+<!--        <mat-list-item style="font-family: IRANSansWeb_Bold;color: white"><i class="fas fa-edit ml-3"></i><a-->
+<!--          [routerLink]="['/stud/panel/edit']" style="font-family: IRANSansWeb_Bold"> ویرایش مشخصات داوطلب</a>-->
+<!--        </mat-list-item>-->
+        <mat-divider></mat-divider>
+
+      </p-accordion>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+
+
+    <p-toolbar>
+      <div class="ui-toolbar-group-right">
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+        >
+          <div class="pi pi-bars text-white"></div>
+        </button>
+      </div>
+
+      <div class="ui-toolbar-group-left">
+        <p-menubar [model]="items">
+          <img [src]="profilImage" style="width: 45px;height:45px;border-radius: 50px">
+        </p-menubar>
+      </div>
+    </p-toolbar>
+
+
+    <ng-content>
+
+    </ng-content>
+
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+

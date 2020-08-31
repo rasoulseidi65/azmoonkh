@@ -1,0 +1,313 @@
+
+<p-toast position="center"></p-toast>
+<p-table [value]="studentModels" #dt [columns]="cols" [paginator]="true" [rows]="20">
+  <ng-template pTemplate="caption">
+    <div class="alert alert-info text-center">لیست داوطلبان ثبت نام شده در {{ currentAdmin['data']['schoolName']}}</div>
+    <div class="alert alert-warning text-center"> برای ویرایش داوطلب، در ستون آخر(ویرایش) روی آیکن سبز رنگ هر داوطلب کلیک کنید، کادر مربوط به ویرایش داوطلب ظاهر می شود.</div>
+
+    <div class="alert alert-secondary text-center"> برای جستجوی داوطلب، در ستون های شماره داوطلب، شماره ملی، نام، نام خانوادگی،نام پدر، شماره همراه، تاریخ تولد، کدپستی را وارد کنید، سیستم به طور خودکار نتیجه جستجو را نمایش می دهد .</div>
+    <!--    <div style="text-align: left" class="ui-table-globalfilter-container">-->
+
+    <!--      <input  class="input-filter" type="text" pInputText size="50" placeholder="جستجوی سراسری" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">-->
+
+    <!--    </div>-->
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr class="title-table">
+      <th style="width: 30%" class="text-center">ردیف</th>
+      <th style="width: 70%" class="text-center">شماره داوطلب </th>
+      <th style="width: 70%" class="text-center">شماره ملی </th>
+      <th style="width: 70%" class="text-center">نام داوطلب</th>
+      <th style="width: 70%" class="text-center">نام خانوادگی</th>
+      <th style="width: 70%" class="text-center">نام پدر </th>
+      <th style="width: 70%" class="text-center">شماره همراه</th>
+      <th style="width:70%" class="text-center">تاریخ تولد</th>
+      <th style="width: 70%" class="text-center">سریال شناسنامه </th>
+      <th style="width: 70%" class="text-center">کدپستی  </th>
+      <th style="width: 70%" class="text-center">مدرسه قبلی </th>
+      <th style="width: 70%" class="text-center">تصویر  </th>
+      <th style="width: 30%" class="text-center">ویرایش</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th *ngFor="let col of cols" [ngSwitch]="col.field" >
+        <input style="width: 100%" class="input-filter text-center" placeholder="جستجوی  " *ngSwitchCase="'candidateNumber'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+        <input  style="width: 100%" class="input-filter text-center " placeholder="جستجوی  " *ngSwitchCase="'nationalCode'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+        <input  style="width: 100%" class="input-filter text-center" placeholder="جستجوی " *ngSwitchCase="'firstName'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+        <input   style="width: 100%" class="input-filter text-center" placeholder="جستجوی  " *ngSwitchCase="'lastName'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+        <input   style="width: 100%" class="input-filter text-center" placeholder="جستجوی  " *ngSwitchCase="'fatherName'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+        <input   style="width: 100%" class="input-filter text-center" placeholder="جستجوی  " *ngSwitchCase="'mobile'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+        <input   style="width: 100%" class="input-filter text-center" placeholder="جستجوی  " *ngSwitchCase="'birthday'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+        <input   style="width: 100%" class="input-filter text-center" placeholder="جستجوی  " *ngSwitchCase="'serialNumber'" pInputText type="text" (input)="dt.filter($event.target.value, col.field, 'contains')">
+
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-student let-rowIndex="rowIndex">
+    <tr>
+      <td class="text-center">{{rowIndex + 1}}</td>
+      <td class="text-center">{{student.candidateNumber}}</td>
+      <td class="text-center">{{student.nationalCode}}</td>
+      <td class="text-center">{{student.firstName}}</td>
+      <td class="text-center">{{student.lastName}}</td>
+      <td class="text-center">{{student.fatherName}}</td>
+      <td class="text-center">{{student.mobile}}</td>
+      <td class="text-center">{{student.birthday}}</td>
+      <td class="text-center">{{student.serialNumber}}</td>
+      <td class="text-center">{{student.postalCode}}</td>
+      <td class="text-center">{{student.previousSchool}}</td>
+      <td class="text-center"><img src="{{student.image}}" style="width: 50px;height: 50px"/></td>
+      <td  class="text-center" (click)="showDialogEdit(student._id)"><i class="fas fa-edit fa-2x text-success" ></i>
+      </td>
+    </tr>
+  </ng-template>
+
+</p-table>
+
+
+
+<p-dialog [(visible)]="displayEdit" [style]="{width: '80vw'}">
+  <p-header>
+    فرم ویرایش مشخصات داوطلب
+  </p-header>
+  <form [formGroup]="formGroup" >
+    <p-panel styleClass="mb-3">
+      <p-header>مشخصات فردی داوطلب</p-header>
+      <div class="row">
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+          <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-4">
+                <label>  نام داوطلب:</label>
+              </div>
+              <div class="ui-grid-col-8">
+                <input pInputText type="text" formControlName="firstName" [(ngModel)]="studentForm.firstName"
+                       value="{{studentForm.firstName}}"/>
+              </div>
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-4">
+                <label>     نام خانوادگی داوطلب: </label>
+              </div>
+              <div class="ui-grid-col-8">
+                <input pInputText type="text" formControlName="lastName" [(ngModel)]="studentForm.lastName"
+                       value="{{studentForm.lastName}}"/>
+              </div>
+
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-4">
+                <label>  شماره ملی :</label>
+              </div>
+              <div class="ui-grid-col-8">
+                <input type="text" pInputText pKeyFilter="num" disabled formControlName="nationalCode"
+                       [(ngModel)]="studentForm.nationalCode" maxlength="10"
+                       value="{{studentForm.nationalCode}}">
+              </div>
+
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-4">
+                <label> شماره همراه :</label>
+              </div>
+              <div class="ui-grid-col-8">
+                <input type="text" pInputText pKeyFilter="num" disabled maxlength="10" formControlName="mobile"
+                       [(ngModel)]="studentForm.mobile" value="{{studentForm.mobile}}">
+              </div>
+
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-4">
+                <label> نام پدر :</label>
+              </div>
+              <div class="ui-grid-col-8">
+                <input type="text" pInputText formControlName="fatherName" [(ngModel)]="studentForm.fatherName"
+                       value="{{studentForm.fatherName}}">
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+          <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-4">
+                <label>     تاریخ تولد:</label>
+              </div>
+              <div class="ui-grid-col-8">
+                <input pInputText type="text" formControlName="birthday" [(ngModel)]="studentForm.birthday"
+                       value="{{studentForm.birthday}}"/>
+              </div>
+
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-4">
+                <label>   سریال شناسنامه :</label>
+              </div>
+              <div class="ui-grid-col-8">
+                <input pInputText type="text" formControlName="serialNumber" [(ngModel)]="studentForm.serialNumber"
+                       value="{{studentForm.serialNumber}}"/>
+              </div>
+
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-4">
+                <label>  کد پستی:</label>
+              </div>
+              <div class="ui-grid-col-8">
+                <input type="text" pInputText pKeyFilter="num"
+                       value="{{studentForm.postalCode}}"
+                       [(ngModel)]="studentForm.postalCode" formControlName="postalCode" maxlength="10">
+              </div>
+
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-4">
+                <label>  جنسیت:</label>
+              </div>
+              <div class="ui-grid-col-8">
+                <input type="text" pInputText formControlName="gender" [(ngModel)]="studentForm.gender"
+                       value="{{studentForm.gender}}">
+              </div>
+
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-4">
+                <label>    آدرس :</label>
+              </div>
+              <div class="ui-grid-col-8">
+                <input type="text" pInputText formControlName="address" [(ngModel)]="studentForm.address"
+                       value="{{studentForm.address}}">
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </p-panel>
+    <p-panel>
+      <p-header>مشخصات تحصیلی داوطلب</p-header>
+      <div class="row">
+        <p class="alert alert-success text-center"> در صورتی که در فرآیند ثبت نام، به اشتباه در مدرسه ای
+          دیگری ثبت نام کرده است. در این قسمت می توانید  با کلیک کردن روی دکمه (ویرایش مدرسه)، مدرسه مورد نظر خود را انتخاب کنید.</p>
+
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+          <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-4">
+                <label>    محل تحصیل قبلی داوطلب :</label>
+              </div>
+              <div class="ui-grid-col-8">
+                <input pInputText type="text" formControlName="previousSchool" [(ngModel)]="studentForm.previousSchool"
+                       value="{{studentForm.previousSchool}}"/>
+              </div>
+
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-4">
+              <label>  محل تحصیل جدید:</label>
+              </div>
+              <div class="ui-grid-col-4">
+                <input pInputText type="text" disabled value="{{schoolName}}"/>
+              </div>
+              <div class="ui-grid-col-4">
+                <button pButton type="button" label="ویرایش مدرسه" (click)="showDialog()"></button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+          <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-4">
+              <label> تلفن محل تحصیل جدید: </label>
+              </div>
+              <div class="ui-grid-col-8">
+                <input type="text" pInputText pKeyFilter="num" disabled value="{{tellSchool}}">
+              </div>
+
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-4">
+                <label>  آدرس محل تحصیل جدید :</label>
+              </div>
+              <div class="ui-grid-col-8">
+                <input type="text" pInputText pKeyFilter="num" disabled value="{{addressSchool}}">
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </p-panel>
+    <p-panel>
+      <p-header>مشخصات سهمیه داوطلب</p-header>
+      <div class="row">
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+          <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-3">
+                <label>  نوع سهمیه :</label>
+              </div>
+              <div class="ui-grid-col-9">
+                <input pInputText type="text" formControlName="quotaTitle" disabled [(ngModel)]="studentForm.quotaTitle"
+                       value="{{studentForm.quotaTitle}}"/>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12" *ngIf="quotaSchool" >
+          <div class="p-grid">
+            <div class="p-col-12 mt-2 mr-2"><p-radioButton name="group2" value="1" [(ngModel)]="studentForm.quotaPriority" formControlName="quotaPriority" label="الف)-فرزندان شاهد"  inputId="preopt1" (onClick)="setQuota()"></p-radioButton></div>
+            <div class="p-col-12 mt-2 mr-2"><p-radioButton name="group2" value="2" [(ngModel)]="studentForm.quotaPriority" formControlName="quotaPriority" label="ب)- فرزندان جانباز 50 درصد به بالا و آزادگان با بیش از 3 سال سابقه اسارت" (onClick)="setQuota()" inputId="preopt2"></p-radioButton></div>
+            <div class="p-col-12 mt-2 mr-2"><p-radioButton name="group2" value="3" [(ngModel)]="studentForm.quotaPriority" formControlName="quotaPriority" label="ج)- فرزندان جانباز 25 درصد تا 49 درصد و آزادگان با بیش از 6 ماه سابقه اسارت" (onClick)="setQuota()" inputId="preopt3"></p-radioButton></div>
+            <div class="p-col-12 mt-2 mr-2"><p-radioButton name="group2" value="4"  [(ngModel)]="studentForm.quotaPriority" formControlName="quotaPriority" label="د)- فرزندان جانباز زیر 25 درصد  و آزادگان با کمتر از 6 ماه سابقه اسارت" (onClick)="setQuota()" inputId="preopt4"></p-radioButton></div>
+            <div class="p-col-12 mt-2 mr-2"><p-radioButton name="group2" value="5"  [(ngModel)]="studentForm.quotaPriority" formControlName="quotaPriority" label="ه)- هیچکدام" (onClick)="setQuota()" inputId="preopt5"></p-radioButton></div>
+          </div>
+        </div>
+
+      </div>
+    </p-panel>
+
+  </form>
+  <p-footer>
+    <button  pButton type="button" class="ui-button-success" label="ویرایش مشخصات" (click)="onSubmit()"></button>
+
+  </p-footer>
+</p-dialog>
+
+<div class="modalEditSchool">
+  <p-dialog [(visible)]="display" >
+    <p-header>
+      ویرایش مدرسه
+    </p-header>
+    <div class="p-grid">
+      <div class="p-col-12 mt-2 mr-2">
+        <p-radioButton name="groupname" value="رضوان" label="رضوان" [(ngModel)]="schoolNameUpdate" (onClick)="updateSchool()"></p-radioButton>
+      </div>
+      <div class="p-col-12 mt-2 mr-2">
+        <p-radioButton name="groupname" value="گلپایگانی" label="گلپایگانی" [(ngModel)]="schoolNameUpdate" (onClick)="updateSchool()"></p-radioButton>
+      </div>
+      <div class="p-col-12 mt-2 mr-2">
+        <p-radioButton name="groupname" value="فرهنگ دختر" label="فرهنگ دختر" [(ngModel)]="schoolNameUpdate" (onClick)="updateSchool()"></p-radioButton>
+      </div>
+      <div class="p-col-12 mt-2 mr-2">
+        <p-radioButton name="groupname" value="فرهنگ پسر" label="فرهنگ پسر" [(ngModel)]="schoolNameUpdate" (onClick)="updateSchool()"></p-radioButton>
+      </div>
+    </div>
+    <!--                <p-dropdown [options]="school" [showTransitionOptions]="'1ms'" [hideTransitionOptions]="'1ms'" formControlName="madrak" [filter]="true"></p-dropdown>-->
+
+    <p-footer>
+      <button class="mt-1" pButton type="button" label=" تایید" (click)="showDialog()"></button>
+
+    </p-footer>
+  </p-dialog>
+</div>
+
+<div class="text-center"><p-progressSpinner *ngIf="resultData"></p-progressSpinner>
+</div>

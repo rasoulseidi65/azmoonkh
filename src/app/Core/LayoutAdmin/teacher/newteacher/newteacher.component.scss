@@ -1,0 +1,51 @@
+*{
+  font-family: IRANSans_Bold;
+}
+input{
+  font-family: IRANSans_Light;
+  background-color: rgb(232, 240, 254) !important;
+  color:#FF8800!important;
+  text-align: right;
+}
+::ng-deep.ui-widget {
+  font-family: IRANSans_Light, "Helvetica Neue", sans-serif!important;
+  font-size: 14px;
+  text-decoration: none;
+}
+::ng-deep.ui-panel-titlebar{
+  background: #FF8800!important;
+  color: #fff!important;
+  font-size: 17px;
+}
+::ng-deep.dp-material .dp-calendar-weekday {
+  font-size: 15px!important;
+  color: #0d47a1!important;
+}
+::ng-deep.dp-material .dp-calendar-weekday:last-child {
+  color: #ec0606!important;
+}
+::ng-deep.dp-material .dp-current-day {
+  border-radius: 50%;
+  border: 1px solid rgba(16, 108, 200, 0.5);
+  background: #FF8800!important;
+  color: white!important;
+}
+::ng-deep.dp-material .dp-picker-input {
+
+  font-size: 15px!important;
+  text-align: center!important;
+
+}
+::ng-deep.ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item{
+  text-align: right!important;
+}
+::ng-deep.ui-inputtext{
+  text-align: left;
+}
+::ng-deep p-inputmask.ng-dirty.ng-invalid > .ui-inputtext, .ui-inputtext.ng-dirty.ng-invalid {
+  border: 1.3px solid #ff0808!important;
+}
+::ng-deep.ui-inputtext.ng-valid {
+  border: 1.3px solid #00C851 !important;
+}
+

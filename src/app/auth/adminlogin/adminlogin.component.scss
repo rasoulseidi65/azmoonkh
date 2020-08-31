@@ -1,0 +1,110 @@
+.container{
+  border-width: thick;
+  border-style: solid;
+  border-color: #1e7e34!important;
+  border-radius: 20px!important;
+}
+.ui-grid-col-3{
+  font-family: IRANSansWeb_Bold!important;
+
+}
+:host::ng-deep.ui-inputtext{
+  font-family: IRANSansWeb_Bold!important;white-space: pre-wrap !important;
+  color: #0d47a1;
+}
+:host::ng-deep.ui-inputtext.ng-valid {
+  border: 1.3px solid #00C851 !important;
+}
+::ng-deep  .ui-inputtext.ng-dirty.ng-invalid {
+  border: 1.3px solid #ff0808!important;
+}
+:host::ng-deep.ui-message.ui-message-error {
+  background-color: #f8b7bd;
+  border: 0 none;
+  color: #fff;
+  font-size: 12px!important;
+  font-family: IRANSansWeb!important;
+}
+:host::ng-deep.ui-panel .ui-panel-titlebar{  font-family: IRANSansWeb_Bold!important;
+  background-color: #0d5bdd;
+  color: #fff;
+  text-align: center;
+}
+:host::ng-deep.ui-dialog .ui-dialog-titlebar{
+  font-family: IRANSansWeb_Bold!important;
+  background-color: #0d5bdd;
+  color: #fff!important;
+  text-align: center;}
+:host::ng-deep.ui-button{  font-family: IRANSansWeb!important;
+  color: #fff;
+
+}
+:host::ng-deep.ui-message.ui-message-error .ui-message-icon {
+  color: #000;
+}
+.inputSMS{font-size: 25px;}
+.card.card-cascade.narrower .view.view-cascade {
+  margin-top: -1.85rem!important;
+}
+
+@media (max-width: 768px) {
+  .view.view-cascade {
+    margin-left: 65% !important;
+  }
+}
+.view.view-cascade {
+  margin-left: 80%!important;
+  /*margin-right: 30%!important;*/
+  margin-top: -20px;
+  background:#a5becf;
+  /*color: white;*/
+  color: #333;
+  font-size: 12px;
+  border-radius: 10px!important;
+  border: 2px solid white;
+}
+.card{
+  border-radius: 10px!important;
+  border-style: solid;
+  border-width: thin;
+  border-color: white;
+  width: 100em;
+}
+
+.fas{
+  font-family: "Font Awesome 5 Pro"!important;
+
+}
+.list-group-item {
+  margin-right: 15px!important;
+  display: list-item!important;
+  padding-top: -15px!important;
+  font-family: IRANSansWeb_Bold;
+}
+.text-titleboxsms{font-family: IRANSansWeb_Bold;}
+.text-resendSMS{font-family: IRANSansWeb_Bold;color:#0d5bdd}
+:host::ng-deep.ui-dialog .ui-dialog-titlebar-icon span {
+
+  color: aliceblue!important;
+}
+:host::ng-deep.ui-grid .ui-grid-row.dialog {
+  display: contents;
+
+}
+:host::ng-deep.otp-input {
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+  border: 1px solid #0d5bdd!important;
+  text-align: center;
+  font-size: 28px;
+}
+:host::ng-deep.otp-input:hover {
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+  border: 1px solid green!important;
+  text-align: center;
+  font-size: 28px;
+}
+/*//footer*/

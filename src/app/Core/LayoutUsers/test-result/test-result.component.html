@@ -1,0 +1,109 @@
+
+<div *ngIf="resultSuccess">
+<div id="printSectionId" style="margin-right: 90px;margin-left: 90px;margin-top: 30px">
+<table class="table table-striped table-bordered " dir="rtl">
+  <thead>
+ <tr><th colspan="5">
+  <div class="row">
+    <div class="col-md-10 col-lg-10">
+      <div class="d-flex justify-content-center flex-column bd-highlight mb-3" style="padding-right: 120px">
+        <div class="p-2 bd-highlight text-center title">کارنامه</div>
+        <div class="p-2 bd-highlight text-center title">آزمون ورودی مدارس نمونه دولتی ناحیه یک خرم آباد</div>
+        <div class="p-2 bd-highlight text-center title">سال تحصیلی 1400-1399</div>
+
+      </div>
+
+    </div>
+    <div class="col-md-2 col-lg-2">
+      <img [src]="resultTestStudent['image']" class="border border-dark" style="width: 100px;height: 120px"/>
+    </div>
+  </div>
+ </th>
+ </tr>
+ <tr><th colspan="5"> <div class="p-2 bd-highlight text-right ">داوطلب گرامی ضمن آرزوی سلامتی و بهروزی برای شما، به آگاهی می رسانیم با توجه به آمار بالا داوطلبان شرکت کننده در آزمون ورودی مدارس نمونه ناحیه یک خرم آباد و ظرفیت محدود پذیرش، کارنامه عملکرد شما به شرح زیر است:</div>
+ </th></tr>
+ <tr>
+    <th style="width: 10%" class="text-center grey lighten-2 text-dark">نام</th>
+    <th style="width: 10%" class="text-center grey lighten-2 text-dark">نام خانوادگی </th>
+    <th style="width:10%" class="text-center grey lighten-2 text-dark">نام پدر </th>
+    <th style="width: 10%" class="text-center grey lighten-2 text-dark">کد ملی </th>
+    <th style="width: 10%" class="text-center grey lighten-2 text-dark">شماره داوطلب </th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="text-center">
+    <td>{{resultTestStudent['firstName']}}</td>
+    <td>{{resultTestStudent['lastName']}}</td>
+    <td>{{resultTestStudent['fatherName']}}</td>
+    <td>{{resultTestStudent['nationalCode']}}</td>
+    <td>{{resultTestStudent['candidateNumber']}}</td>
+
+  </tr>
+
+  </tbody>
+</table>
+<table class="table table-striped table-bordered" dir="rtl">
+  <thead>
+
+  <tr class="text-center grey lighten-2">
+    <th style="width: 1%" class="text-center grey lighten-2 text-dark">ردیف</th>
+    <th style="width: 20%" class="text-center grey lighten-2 text-dark">نام درس</th>
+    <th style="width: 10%" class="text-center grey lighten-2 text-dark">درصد </th>
+    <th style="width:10%" class="text-center grey lighten-2 text-dark">تراز داوطلب</th>
+    <th style="width:10%" class="text-center grey lighten-2 text-dark">تراز کلی</th>
+    <th rowspan="2" style="width:30%" class="text-center grey lighten-2 text-dark">نتیجه آزمون</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="text-center">
+    <td>1</td>
+    <td>ادبیات</td>
+    <td>{{resultTest['adabiat']}}</td>
+
+    <td rowspan="5">{{resultTest['score']}}</td>
+    <td rowspan="5">20020</td>
+    <td rowspan="5">{{resultTest['acception']}}</td>
+  </tr>
+  <tr class="text-center">
+    <td>2</td>
+    <td>علوم</td>
+    <td>{{resultTest['olomOrMotaleat']}}</td>
+
+  </tr>
+  <tr class="text-center" *ngIf="resultTestStudent['schoolID']=='5eefe9f61340b80d48d8d2f7'|| resultTestStudent['schoolID']=='5eefea141340b80d48d8d2f8'">
+    <td>3</td>
+    <td>قرآن و هدیه های آسمانی</td>
+    <td>{{resultTest['quran']}}</td>
+
+  </tr>
+  <tr class="text-center" *ngIf="resultTestStudent['schoolID']=='5eefea291340b80d48d8d2f9'|| resultTestStudent['schoolID']=='5eefea2f1340b80d48d8d2fa'">
+    <td>3</td>
+    <td>آموزش قرآن و پیام های آسمانی</td>
+    <td>{{resultTest['quran']}}</td>
+
+  </tr>
+  <tr class="text-center">
+    <td>4</td>
+    <td>ریاضی</td>
+    <td>{{resultTest['riazi']}}</td>
+
+
+  </tr>
+  <tr class="text-center" *ngIf="resultTestStudent['schoolID']=='5eefea291340b80d48d8d2f9'|| resultTestStudent['schoolID']=='5eefea2f1340b80d48d8d2fa'">
+    <td>5</td>
+    <td>عربی</td>
+    <td>{{resultTest['arabic']}}</td>
+
+  </tr>
+  </tbody>
+</table>
+</div>
+<div class="text-center">
+<button pButton   type="button" [useExistingCss]="true"  label="چاپ کارنامه" printSectionId="printSectionId" ngxPrint icon="pi pi-print" iconPos="right"></button>
+</div>
+</div>
+<div *ngIf="resultNotSuccess">
+
+  <div class="alert alert-info text-center">داوطلب گرامی، شما در آزمون غایب بوده اید.</div>
+</div>

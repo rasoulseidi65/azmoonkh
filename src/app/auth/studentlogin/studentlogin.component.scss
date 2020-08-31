@@ -1,0 +1,43 @@
+.list-group-item{font-family: IRANSansWeb}
+.ui-grid-col-3{font-family: IRANSansWeb}
+.container{
+  border-width: thick;
+  border-style: solid;
+  border-color: #1e7e34!important;
+  border-radius: 20px!important;
+}
+@media (max-width: 768px) {
+  .view.view-cascade {
+    margin-left: 65% !important;
+  }
+}
+.view.view-cascade {
+  margin-left: 80%!important;
+  /*margin-right: 30%!important;*/
+  margin-top: -20px;
+  background:#a5becf;
+  /*color: white;*/
+  color: #333;
+  font-size: 12px;
+  border-radius: 10px!important;
+  border: 2px solid white;
+}
+.card{
+  border-radius: 10px!important;
+  border-style: solid;
+  border-width: thin;
+  border-color: white;
+  width: 100em;
+}
+:host::ng-deep.ui-panel .ui-panel-titlebar{  font-family: IRANSansWeb_Bold!important;
+  background-color: #0d5bdd;
+  color: #fff;
+  text-align: center;
+}
+:host::ng-deep.ui-button{  font-family: IRANSansWeb!important;
+  color: #fff;
+}
+:host::ng-deep.ui-inputtext{
+  font-family: IRANSansWeb_Bold!important;
+  color: #0d47a1;
+}

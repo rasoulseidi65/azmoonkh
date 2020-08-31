@@ -1,0 +1,22 @@
+*{
+  font-family: IRANSansWeb_Bold;
+  font-size: 13px;
+}
+
+:host::ng-deep.ui-panel .ui-panel-titlebar {
+  border: 1px solid #c8c8c8;
+  padding: 0.571em 1em;
+  color:#fff;
+  text-align: right!important;
+  background-color: #33b5e5;}
+input{ font-family: IRANSansWeb_Bold;
+  font-size: 13px;}
+:host::ng-deep.ui-dropdown-item.ui-corner-all{ font-family: IRANSansWeb_Bold;}
+:host::ng-deep.ui-dropdown label.ui-dropdown-label{ font-family: IRANSansWeb_Bold;}
+.modalEditSchool :host::ng-deep.ui-dialog {
+  width: 30%!important;
+}
+:host::ng-deep.ui-button{  font-family: IRANSansWeb!important;
+  color: #fff;
+
+}

@@ -1,0 +1,11 @@
+*{font-family: IRANSansWeb;cursor: pointer}
+:host::ng-deep.ui-card-content,.ui-card-header{
+  font-family: IRANSansWeb_Bold!important;
+  color: white!important;
+  text-align: center!important;
+}
+
+button{font-family: IRANSansWeb;cursor: pointer}
+.table-bordered,tr th,tr td {border: 1px solid black!important;}
+.title{font-family: IRANSansWeb_Bold;}
+tr td{font-family: IRANSansWeb_Bold}

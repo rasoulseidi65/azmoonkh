@@ -1,0 +1,81 @@
+*{font-size: 14px;cursor: pointer}
+:host::ng-deep.ui-table-thead{
+  font-family: IRANSansWeb_Bold!important;
+  color: #fff!important;
+  background: #0099CC!important;
+}
+
+:host::ng-deep.ui-table-tbody{
+  font-family: IRANSansWeb!important;
+
+
+}
+:host::ng-deep.ui-paginator {
+  background-color: #f1eaea!important;
+
+}
+.input-filter{
+  font-family: IRANSansWeb!important;
+}
+:host::ng-deep.ui-button-text{
+  font-family: IRANSansWeb!important;
+}
+#text-delete-dialog{
+  font-family: IRANSansWeb!important;
+}
+:host::ng-deep.ui-dialog .ui-dialog-titlebar {
+  //border: 1px solid #c8c8c8;
+  background-color: #0099CC!important;
+  color:white!important;
+  font-family: IRANSansWeb!important;
+}
+:host::ng-deep.pi.pi-times{
+  color:white!important;
+}
+:host::ng-deep.ui-table .ui-table-thead > tr.title-table > th{
+  background-color: #0099CC!important;
+  color:white!important;
+  font-size: 12px;
+}
+
+:host::ng-deep.ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item{
+  text-align: right!important;
+}
+:host::ng-deep p-inputmask.ng-dirty.ng-invalid > .ui-inputtext, .ui-inputtext.ng-dirty.ng-invalid {
+  border: 1.3px solid #ff0808!important;
+}
+:host::ng-deep.ui-inputtext.ng-valid {
+  border: 1.3px solid #00C851 !important;
+}
+:host::ng-deep.ui-table .ui-table-tbody > tr> th{font-size: 14px!important;}
+.alert-info,.alert-warning,.alert-secondary{font-family: IRANSansWeb_Bold}
+@keyframes ui-progress-spinner-color {
+  100%,
+  0% {
+    stroke: #d62d20;
+  }
+  40% {
+    stroke: #0057e7;
+  }
+  66% {
+    stroke: #008744;
+  }
+  80%,
+  90% {
+    stroke: #ffa700;
+  }
+}
+input{
+  font-family: IRANSansWeb_Bold;
+}
+label{font-family: IRANSansWeb}
+:host::ng-deep.ui-panel .ui-panel-titlebar {
+  background-color: #0099CC!important;
+  color:white!important;
+  font-family: IRANSansWeb!important;
+}
+:host::ng-deep.ui-dropdown-panel .ui-dropdown-items .ui-dropdown-item{
+  text-align: right!important;
+  font-family: IRANSansWeb;
+}
+:host::ng-deep.ui-dropdown label.ui-dropdown-label{font-family: IRANSansWeb;}

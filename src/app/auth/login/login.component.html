@@ -1,0 +1,133 @@
+<div class="container" dir="rtl">
+  <app-header></app-header>
+
+
+  <div class="d-flex justify-content-center  mr-2 mt-4 mb-5">
+
+    <div class="card card-cascade narrower " style="border-radius: 10px!important;
+    border: 2px solid #a5becf;">
+
+      <!-- Card image -->
+      <div class="view view-cascade overlay">
+        <div class="mt-2">
+          <p class="text-center" style="font-family: IRANSansWeb_Bold;"><i class="fas fa-user m-2"></i>داوطلب گرامی</p>
+        </div>
+        <a>
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
+      <div class="text-center" style="font-family: IRANSansWeb_Bold; font-size: 18px;font-style: revert"> نکاتی پیرامون
+        پرداخت هزینه ثبت نام
+      </div>
+
+      <!-- Card content -->
+      <div class="card-body card-body-cascade ">
+        <form>
+          <div class="form-group row d-flex justify-content-center mb-5">
+
+            <ul class="list-group list-group-flush ml-4 text-right" style="list-style-type: none!important;">
+              <li class="list-group-item text-right" style="color: #333">1- برای پرداخت هزینه حتماً <span style="color:red">شماره همراه </span>
+                و <span style="color:red">کد ملی (داوطلب) </span>
+                به صورت دقیق وارد نمائید
+              </li>
+              <li class="list-group-item" style="color:red;font-size: 16px">2- در صورتی که در فرآیند ثبت نام پرداخت هزینه با موفقیت انجام شده باشد و داوطلب بقیه مراحل ثبت نام را انجام نداده باشد، لازم است یکبار دیگر مراحل ثبت نام  را در همین صفحه انجام دهد.(لازم به ذکر است که برای بار دوم پرداخت هزینه صورت نمی گیرد) .</li>
+
+
+
+            </ul>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="mt-5 mb-5 d-flex justify-content-center">
+    <div style="width: 40em">
+      <form [formGroup]="userform" (ngSubmit)="onSubmit()">
+        <p-panel>
+          <p-header class="headerPanel">
+            فرم پرداخت هزینه ثبت نام در آزمون
+          </p-header>
+          <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-3">
+                شماره همراه:<label style="color: red">*</label>:
+              </div>
+              <div class="ui-grid-col-5">
+                <input pInputText formControlName="mobile" pKeyFilter="num" maxlength="11" [(ngModel)]="payment.mobile" dir="ltr"/>
+
+                <!--              <input pInputText type="text" formControlName="mobile" placeholder=""/>-->
+              </div>
+              <div class="ui-grid-col-4">
+                <p-message severity="error" text="شماره همراه را صحیح وارد نمائید"
+                           *ngIf="!userform.controls['mobile'].valid&&userform.controls['mobile'].dirty"></p-message>
+              </div>
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-3">
+                کد ملی: <label style="color: red">*</label>:
+              </div>
+              <div class="ui-grid-col-5">
+                <input  pInputText  pKeyFilter="num" maxlength="10" formControlName="nationalCode" [(ngModel)]="payment.nationalCode"
+                       dir="ltr"/>
+
+                <!--              <input pInputText type="text" formControlName="nationalCode" placeholder=""/>-->
+              </div>
+              <div class="ui-grid-col-4">
+                <p-message severity="error" text="کد ملی را صحیح وارد نمائید "
+                           *ngIf="!userform.controls['nationalCode'].valid&&userform.controls['nationalCode'].dirty"></p-message>
+              </div>
+            </div>
+          </div>
+          <p-footer>
+            <button pButton type="submit" label="تائید" [disabled]="!userform.valid"></button>
+
+          </p-footer>
+        </p-panel>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+
+</div>
+<p-dialog [(visible)]="display">
+  <p-header class="headerPanel">
+    اعتبارسنجی شماره همراه
+  </p-header>
+  <label class="text-titleboxsms mt-4 mb-4">کد ارسال شده به شماره همراه {{payment.mobile}}  در کادر زیر وارد
+    نمائید</label>
+  <br>
+  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid ">
+    <div class="ui-grid-row dialog">
+
+      <div>
+        <ng-otp-input  #ngOtpInput (onInputChange)="onOtpChange($event)" [config]="{length:5,allowNumbersOnly:true}" dir="ltr"
+                      style="font-family: IRANSansWeb" class="text-center"></ng-otp-input>
+        <!--        <p-inputMask mask="9999" class="inputSMS"></p-inputMask>-->
+      </div>
+    </div>
+  </div>
+  <div *ngIf="resendSMS">
+    <a class="text-titleboxsms mt-5 mb-5" (click)="onSubmit()">ارسال مجدد کد</a>
+  </div>
+  <div class="alert alert-danger mt-4 mb-3 text-center" *ngIf="invalidSMS" style="font-family: IRANSansWeb_Bold">کد وارد شده اشتباه می باشد</div>
+  <p-footer dir="rtl" class="text-left mt-5 ">
+
+
+        <button pButton type="submit" label="پرداخت هزینه" cornerStyleClass="text-center" [disabled]="validationBtnPay"
+                (click)="onPayment()"></button>
+
+
+
+      <button pButton type="submit" class="ui-button-danger" label="مدت زمان باقیمانده:{{timeLeft}}" cornerStyleClass="text-center"
+              (click)="onPayment()"></button>
+
+  </p-footer>
+</p-dialog>
+
+
+
+

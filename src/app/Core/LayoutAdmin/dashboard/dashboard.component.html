@@ -1,0 +1,60 @@
+<mat-sidenav-container class="sidenav-container" dir="rtl">
+  <mat-sidenav
+      #drawer
+      class="sidenav"
+      fixedInViewport="true"
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="!(isHandset$ | async)"
+  >
+    <mat-toolbar class="title-sidebar">پنل مدیریت</mat-toolbar>
+    <hr style="margin-top: -10px"/>
+    <mat-nav-list>
+      <a mat-list-item class="" [routerLink]="['/admin/panel']">
+        <i class="pi pi-home ml-5"></i>
+        صفحه اصلی </a
+      >
+
+      <p-accordion>
+          <mat-list>
+            <mat-list-item routerLink="./list"><i class="fas fa-list ml-5 "></i>لیست  کلی داوطلب ها</mat-list-item>
+          </mat-list>
+
+        <mat-list>
+          <mat-list-item [routerLink]="['./listResult',schoolID]"><i class="fas fa-list ml-5 "></i>نتایج آزمون</mat-list-item>
+        </mat-list>
+        <mat-list>
+          <mat-list-item routerLink="./"><i class="fas fa-power-off ml-5 "></i>خروج</mat-list-item>
+        </mat-list>
+      </p-accordion>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+
+
+    <p-toolbar>
+      <div class="ui-toolbar-group-right">
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+        >
+          <div class="pi pi-bars text-white"></div>
+        </button>
+      </div>
+
+      <div class="ui-toolbar-group-left">
+        <p-menubar [model]="items">
+<!--          <img src="{{this.currentAdmin.data['image']}}" style="width: 45px;height:45px;border-radius: 50px">-->
+        </p-menubar>
+      </div>
+    </p-toolbar>
+
+
+    <ng-content></ng-content>
+
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,240 @@
+<p-toast position="center"></p-toast>
+
+
+
+<form [formGroup]="formGroup" dir="rtl">
+  <p-panel styleClass="mb-3" dir="rtl">
+    <p-header>فرم مشخصات مدیرها</p-header>
+    <div class="row">
+      <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-4">
+              <label>  نام کاربری:</label>
+            </div>
+            <div class="ui-grid-col-8">
+              <input pInputText type="text" formControlName="username" [(ngModel)]="userAdmin.username"
+                     />
+            </div>
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-4">
+              <label>     گذر واژه: </label>
+            </div>
+            <div class="ui-grid-col-8">
+              <input pInputText type="text" formControlName="password" [(ngModel)]="userAdmin.password"
+                   />
+            </div>
+
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-4">
+              <label>  نقش (مسئولیت)  :</label>
+            </div>
+            <div class="ui-grid-col-8">
+              <p-dropdown [options]="role"  formControlName="role" [showTransitionOptions]="'1ms'" [hideTransitionOptions]="'1ms'" [filter]="true"  [(ngModel)]="userAdmin.role" ></p-dropdown>
+
+<!--              <input type="text" pInputText   formControlName="role"-->
+<!--                     [(ngModel)]="userAdmin.role"-->
+<!--                    >-->
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-4">
+              <label>  نام مدرسه:</label>
+            </div>
+            <div class="ui-grid-col-8">
+              <p-dropdown [options]="school" formControlName="schoolName" [showTransitionOptions]="'1ms'" [hideTransitionOptions]="'1ms'" [filter]="true"
+                          [(ngModel)]="userAdmin.schoolName" (onChange)="setSchool()"></p-dropdown>
+
+<!--              <input pInputText type="text" formControlName="schoolName" [(ngModel)]="userAdmin.schoolName"-->
+<!--                    />-->
+            </div>
+
+          </div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-4">
+              <label>    نام مدیر :</label>
+            </div>
+            <div class="ui-grid-col-8">
+              <input pInputText type="text" formControlName="adminName" [(ngModel)]="userAdmin.adminName"
+                     />
+            </div>
+
+          </div>
+<!--          <div class="ui-grid-row">-->
+<!--            <div class="ui-grid-col-4">-->
+<!--              <label>  عکس مدیر:</label>-->
+<!--            </div>-->
+<!--            <div class="ui-grid-col-8">-->
+<!--              <input type="text" pInputText-->
+
+<!--                     [(ngModel)]="userAdmin.image" formControlName="image" >-->
+<!--            </div>-->
+
+<!--          </div>-->
+
+        </div>
+      </div>
+    </div>
+    <p-footer>
+      <button pButton label="ثبت مدیر جدید" class="ui-button-success" icon="pi pi-check" iconPos="right" (click)="onSubmit()" ></button>
+    </p-footer>
+  </p-panel>
+
+
+</form>
+<p-table [value]="users" #dt [columns]="cols" [paginator]="true" [rows]="20" id="printSectionId" dir="rtl">
+  <ng-template pTemplate="caption">
+
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr class="title-table" dir="rtl">
+      <th style="width: 10%" class="text-center">ردیف</th>
+      <th style="width: 30%" class="text-center">نام کاربری  </th>
+
+<!--      <th style="width: 70%" class="text-center">کد مدرسه </th>-->
+      <th style="width: 70%" class="text-center">نام مدرسه </th>
+      <th style="width: 40%" class="text-center">نقش  </th>
+      <th style="width: 70%" class="text-center">نام مدیر </th>
+<!--      <th style="width: 20%" class="text-center">تصویر </th>-->
+      <th style="width: 30%" class="text-center">ویرایش</th>
+      <th style="width: 30%" class="text-center">حذف</th>
+    </tr>
+    <tr>
+
+
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-user let-rowIndex="rowIndex" >
+    <tr dir="rtl">
+      <td class="text-center">{{rowIndex + 1}}</td>
+      <td class="text-center">{{user.username}}</td>
+
+<!--      <td class="text-center">{{school.schoolID}}</td>-->
+      <td class="text-center" >{{user.schoolName}}</td>
+      <td class="text-center">{{user.role}}</td>
+      <td class="text-center">{{user.adminName}}</td>
+<!--      <td class="text-center"><img src="{{school.image}}" style="width: 50px;height: 50px"/></td>-->
+      <td  class="text-center" (click)="showDialogEdit(user._id)"><i class="fas fa-edit fa-2x text-success" ></i>
+      <td  class="text-center" (click)="showConfirm(user._id)"><i class="fas fa-trash fa-2x text-danger" ></i>
+
+      </td>
+    </tr>
+  </ng-template>
+
+</p-table>
+<p-toast position="center" key="c" (onClose)="onReject()" [modal]="false" >
+  <ng-template let-message pTemplate="message">
+    <div style="text-align: center">
+      <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+      <h3>{{message.summary}}</h3>
+      <p>{{message.detail}}</p>
+    </div>
+    <div class="p-grid ui-fluid">
+      <div class="p-col-6">
+        <button type="button" pButton (click)="onConfirm()" label="Yes" class="ui-button-success"></button>
+      </div>
+      <div class="p-col-6">
+        <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
+      </div>
+    </div>
+  </ng-template>
+</p-toast>
+<p-dialog [(visible)]="displayEdit" [style]="{width: '50vw'}">
+  <p-header>
+    فرم ویرایش مشخصات کاربر
+  </p-header>
+  <form [formGroup]="formGroup" >
+
+      <div class="row">
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+          <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-4">
+                <label>  نام کاربری:</label>
+              </div>
+              <div class="ui-grid-col-8">
+                <input pInputText type="text" formControlName="username" [(ngModel)]="userAdmin.username"
+                />
+              </div>
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-4">
+                <label>     گذر واژه: </label>
+              </div>
+              <div class="ui-grid-col-8">
+                <input pInputText type="text" formControlName="password" [(ngModel)]="userAdmin.password"
+                />
+              </div>
+
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-4">
+                <label>  نقش (مسئولیت)  :</label>
+              </div>
+              <div class="ui-grid-col-8">
+                <p-dropdown [options]="role"  formControlName="role" [showTransitionOptions]="'1ms'" [hideTransitionOptions]="'1ms'" [filter]="true"  [(ngModel)]="userAdmin.role" ></p-dropdown>
+
+                <!--              <input type="text" pInputText   formControlName="role"-->
+                <!--                     [(ngModel)]="userAdmin.role"-->
+                <!--                    >-->
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+          <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-4">
+                <label>  نام مدرسه:</label>
+              </div>
+              <div class="ui-grid-col-8">
+                <p-dropdown [options]="school" formControlName="schoolName" [showTransitionOptions]="'1ms'" [hideTransitionOptions]="'1ms'" [filter]="true"
+                            [(ngModel)]="userAdmin.schoolName" (onChange)="setSchool()"></p-dropdown>
+
+                <!--              <input pInputText type="text" formControlName="schoolName" [(ngModel)]="userAdmin.schoolName"-->
+                <!--                    />-->
+              </div>
+
+            </div>
+            <div class="ui-grid-row">
+              <div class="ui-grid-col-4">
+                <label>    نام مدیر :</label>
+              </div>
+              <div class="ui-grid-col-8">
+                <input pInputText type="text" formControlName="adminName" [(ngModel)]="userAdmin.adminName"
+                />
+              </div>
+
+            </div>
+            <!--          <div class="ui-grid-row">-->
+            <!--            <div class="ui-grid-col-4">-->
+            <!--              <label>  عکس مدیر:</label>-->
+            <!--            </div>-->
+            <!--            <div class="ui-grid-col-8">-->
+            <!--              <input type="text" pInputText-->
+
+            <!--                     [(ngModel)]="userAdmin.image" formControlName="image" >-->
+            <!--            </div>-->
+
+            <!--          </div>-->
+
+          </div>
+        </div>
+      </div>
+      <p-footer>
+        <button pButton label="  ویرایش" class="ui-button-success" icon="pi pi-check" iconPos="right" (click)="onUpdate()" ></button>
+      </p-footer>
+
+  </form>
+
+</p-dialog>
